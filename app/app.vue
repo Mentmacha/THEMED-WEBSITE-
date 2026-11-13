@@ -400,7 +400,7 @@
         <!-- API SECTION IMAGE (phone + laptop, 1022 x 675). The aspect ratio sets the height; the image fills the link. -->
         <a
           href="/apis/authorization"
-          class="mx-auto mt-8 block aspect-[1022/675] w-full max-w-[1022.97px] md:mt-12"
+          class="mx-auto mt-8 block `aspect-1022/675` w-full max-w-[1022.97px] md:mt-12"
         >
           <img
             src="/authorization-section-image.png"
