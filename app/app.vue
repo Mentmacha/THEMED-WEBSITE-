@@ -320,14 +320,14 @@
                 key="light"
                 src="/ecitizen%20hero%20logo%20.png"
                 alt="eCitizen Developer Sandbox"
-                class="h-24 w-74.25 object-contain object-left"
+                class="h-24 w-74.25  mb-10.5 object-contain object-left"
               />
               <img
                 v-else
                 key="dark"
                 src="/Dark%20mode%20ecitizen.png"
                 alt="eCitizen Developer Sandbox"
-                class="h-24 w-74.25 object-contain object-left"
+                class="h-24 w-74.25 mb-10.5 object-contain object-left"
               />
             </Transition>
           </a>
