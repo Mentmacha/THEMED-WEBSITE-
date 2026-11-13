@@ -400,7 +400,7 @@
           class="mx-auto mt-8 block aspect-[1022.97/467] w-full max-w-[1022.97px] md:mt-12 min-[1200px]:h-116.75 min-[1200px]:w-[1022.97px]"
         >
           <img
-            src="/Authorization%20section%20image.png"
+            src="/authorization-section-image.png"
             alt="eCitizen app on a phone and One Login screen on a laptop"
             width="1022.97"
             height="467"
