@@ -335,7 +335,7 @@
           <h1
             class="max-w-full bg-[linear-gradient(100deg,var(--ec-hero-1)_0%,var(--ec-hero-2)_25%,var(--ec-hero-3)_41%,var(--ec-hero-4)_67%,var(--ec-hero-5)_100%)] bg-clip-text pb-1 text-[34px] font-semibold leading-[1.15] text-transparent sm:text-5xl md:text-6xl min-[1200px]:mt-9 min-[1200px]:-mb-3 min-[1200px]:w-196.25 min-[1200px]:pb-3 min-[1200px]:text-[70px] min-[1200px]:leading-[1.1] min-[1200px]:whitespace-nowrap"
           >
-            Innovation Meets<br class="hidden min-[1200px]:block" />
+            Innovation <span class="inline-block bg-[linear-gradient(115deg,var(--ec-meets-1)_0%,var(--ec-meets-2)_30%,var(--ec-meets-3)_55%,var(--ec-meets-4)_78%,var(--ec-meets-5)_100%)] bg-clip-text text-transparent">Meets</span><br class="hidden min-[1200px]:block" />
             Integration.
           </h1>
           <div
@@ -398,7 +398,7 @@
         <!-- API SECTION IMAGE (phone + laptop, 1022 x 675). The aspect ratio sets the height; the image fills the link. -->
         <a
           href="/apis/authorization"
-          class="mx-auto mt-8 block `aspect-1022/675` w-full max-w-[1022.97px] md:mt-12"
+          class="mx-auto mt-8 block aspect-[1022/675] w-full max-w-[1022.97px] md:mt-12"
         >
           <img
             src="/authorization-section-image.png"
@@ -946,6 +946,11 @@ function pillClass(on, tone) {
   --ec-glass-inset: rgba(255, 255, 255, 0.7);
   --ec-glass-drop: rgba(16, 24, 40, 0.06);
   --ec-glow: rgba(34, 120, 70, 0);
+  --ec-meets-1: #74b86a;
+  --ec-meets-2: #98ca70;
+  --ec-meets-3: #aebf46;
+  --ec-meets-4: #b8a63e;
+  --ec-meets-5: #c4852f;
 
   color-scheme: light;
 }
@@ -986,16 +991,21 @@ function pillClass(on, tone) {
   --ec-btn-bg-hover: #109a3e;
   --ec-btn-text: #ffffff;
   --ec-footer-bg: #0a0a0a;
-  --ec-hero-1: #3e9e52;
-  --ec-hero-2: #46a756;
-  --ec-hero-3: #4bad59;
-  --ec-hero-4: #a9ce7a;
-  --ec-hero-5: #d9b45b;
+  --ec-hero-1: rgba(4, 85, 33, 0.7);
+  --ec-hero-2: #1e9034;
+  --ec-hero-3: #7dcc70;
+  --ec-hero-4: #a9bf36;
+  --ec-hero-5: #db6900;
   --ec-glass-bg: rgba(28, 28, 28, 0.5);
   --ec-glass-border: rgba(255, 255, 255, 0.08);
   --ec-glass-inset: rgba(255, 255, 255, 0.08);
   --ec-glass-drop: rgba(0, 0, 0, 0.35);
   --ec-glow: rgba(34, 120, 70, 0.14);
+  --ec-meets-1: #74b86a;
+  --ec-meets-2: #98ca70;
+  --ec-meets-3: #aebf46;
+  --ec-meets-4: #b8a63e;
+  --ec-meets-5: #c4852f;
 
   color-scheme: dark;
 }
@@ -1071,6 +1081,11 @@ html {
 @property --ec-glass-inset { syntax: '<color>'; inherits: true; initial-value: rgba(255, 255, 255, 0.7); }
 @property --ec-glass-drop { syntax: '<color>'; inherits: true; initial-value: rgba(16, 24, 40, 0.06); }
 @property --ec-glow { syntax: '<color>'; inherits: true; initial-value: rgba(34, 120, 70, 0); }
+@property --ec-meets-1 { syntax: '<color>'; inherits: true; initial-value: #74b86a; }
+@property --ec-meets-2 { syntax: '<color>'; inherits: true; initial-value: #98ca70; }
+@property --ec-meets-3 { syntax: '<color>'; inherits: true; initial-value: #aebf46; }
+@property --ec-meets-4 { syntax: '<color>'; inherits: true; initial-value: #b8a63e; }
+@property --ec-meets-5 { syntax: '<color>'; inherits: true; initial-value: #c4852f; }
 
 /* ================= SMOOTH THEME SWITCH ================= */
 
