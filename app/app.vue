@@ -136,6 +136,8 @@
               </a>
 
               <input
+                id="site-search"
+                name="q"
                 type="search"
                 aria-label="Search"
                 class="h-full w-full min-w-0 bg-transparent px-3 text-xs text-(--ec-nav-text) outline-none"
@@ -320,20 +322,20 @@
                 key="light"
                 src="/ecitizen%20hero%20logo%20.png"
                 alt="eCitizen Developer Sandbox"
-                class="h-24 w-74.25 mt-17.75  mb-10.5 object-contain object-left"
+                class="h-24 w-74.25 object-contain object-left"
               />
               <img
                 v-else
                 key="dark"
                 src="/Dark%20mode%20ecitizen.png"
                 alt="eCitizen Developer Sandbox"
-                class="h-24 w-74.25 mt-17.75  mb-10.5 object-contain object-left"
+                class="h-24 w-74.25 object-contain object-left"
               />
             </Transition>
           </a>
 
           <h1
-            class="max-w-full mb-9 h-38.5 bg-[linear-gradient(100deg,var(--ec-hero-1)_0%,var(--ec-hero-2)_25%,var(--ec-hero-3)_41%,var(--ec-hero-4)_67%,var(--ec-hero-5)_100%)] bg-clip-text pb-1 text-[34px] font-semibold leading-[1.15] text-transparent sm:text-5xl md:text-6xl min-[1200px]:mt-9 min-[1200px]:-mb-3 min-[1200px]:w-196.25 min-[1200px]:pb-3 min-[1200px]:text-[70px] min-[1200px]:leading-[1.1] min-[1200px]:whitespace-nowrap"
+            class="max-w-full bg-[linear-gradient(100deg,var(--ec-hero-1)_0%,var(--ec-hero-2)_25%,var(--ec-hero-3)_41%,var(--ec-hero-4)_67%,var(--ec-hero-5)_100%)] bg-clip-text pb-1 text-[34px] font-semibold leading-[1.15] text-transparent sm:text-5xl md:text-6xl min-[1200px]:mt-9 min-[1200px]:-mb-3 min-[1200px]:w-196.25 min-[1200px]:pb-3 min-[1200px]:text-[70px] min-[1200px]:leading-[1.1] min-[1200px]:whitespace-nowrap"
           >
             Innovation <span class="inline-block bg-[linear-gradient(115deg,var(--ec-meets-1)_0%,var(--ec-meets-2)_30%,var(--ec-meets-3)_55%,var(--ec-meets-4)_78%,var(--ec-meets-5)_100%)] bg-clip-text text-transparent">Meets</span><br class="hidden min-[1200px]:block" />
             Integration.
