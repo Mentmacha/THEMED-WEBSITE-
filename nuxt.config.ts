@@ -6,5 +6,10 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  
+  app: {
+    baseURL: '/THEMED-WEBSITE-/',
+  },
+  nitro: {
+    preset: 'github_pages',
+  },
 })
