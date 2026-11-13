@@ -333,12 +333,13 @@
           </a>
 
           <h1
-            class="max-w-full bg-[linear-gradient(90deg,var(--ec-hero-1)_0%,var(--ec-hero-2)_25%,var(--ec-hero-3)_41%,var(--ec-hero-4)_72%,var(--ec-hero-5)_100%)] bg-clip-text pb-1 text-[34px] font-semibold leading-[1.15] text-transparent sm:text-5xl md:text-6xl min-[1200px]:mt-9 min-[1200px]:w-135 min-[1200px]:text-[70px]"
+            class="max-w-full bg-[linear-gradient(100deg,var(--ec-hero-1)_0%,var(--ec-hero-2)_25%,var(--ec-hero-3)_41%,var(--ec-hero-4)_67%,var(--ec-hero-5)_100%)] bg-clip-text pb-1 text-[34px] font-semibold leading-[1.15] text-transparent sm:text-5xl md:text-6xl min-[1200px]:mt-9 min-[1200px]:-mb-3 min-[1200px]:w-196.25 min-[1200px]:pb-3 min-[1200px]:text-[70px] min-[1200px]:leading-[1.1] min-[1200px]:whitespace-nowrap"
           >
-            Innovation Meets Integration.
+            Innovation Meets<br class="hidden min-[1200px]:block" />
+            Integration.
           </h1>
           <div
-            class="mt-6 w-full text-sm font-light leading-[1.45] text-(--ec-text) min-[1200px]:mt-9 min-[1200px]:h-34 min-[1200px]:w-154.5"
+            class="mt-6 mb-8 w-full text-sm font-light leading-[1.45] text-(--ec-text) min-[1200px]:mt-9 min-[1200px]:mb-50.75 min-[1200px]:h-34 min-[1200px]:w-154.5"
           >
             <p>
               DEV eCitizen, is a controlled and isolated environment designed exclusively for developers,<br class="hidden min-[1200px]:block" />
@@ -355,7 +356,7 @@
         </div>
 
         <!-- HERO ARTWORK (subtle glow lives here, directly behind the mask logo only) -->
-        <div class="relative justify-self-center min-[1200px]:mt-1.75 min-[1200px]:justify-self-end">
+        <div class="relative justify-self-center min-[1200px]:h-651.14 min-[1200px]:w-651.14 min-[1200px]:justify-self-end">
           <span
             aria-hidden="true"
             class="ec-art-glow pointer-events-none absolute top-1/2 left-1/2 z-0 h-[170%] w-[170%] -translate-x-1/2 -translate-y-1/2"
@@ -365,7 +366,7 @@
             <img
               src="/Art%20mask%20logo%20.png"
               alt="eCitizen hero artwork"
-              class="mx-auto h-auto w-full max-w-60 object-contain sm:max-w-100 min-[1200px]:mx-0 min-[1200px]:mt-10 min-[1200px]:max-w-118.25"
+              class="mx-auto mb-8 h-auto w-full max-w-60 object-contain sm:max-w-100 min-[1200px]:mx-0 min-[1200px]:mt-20.25 min-[1200px]:mb-37.89 min-[1200px]:h-126.25 min-[1200px]:w-118.25 min-[1200px]:max-w-118.25"
             />
           </a>
         </div>
@@ -384,8 +385,8 @@
         </h2>
 
         <!-- NAVIGATION PILLS (theme aware) -->
-        <div class="mt-4 inline-flex items-center rounded-full bg-(--ec-chip-bg) p-0.5 text-[11px] shadow-sm">
-          <a
+<div class="mb-8 mt-10 flex h-7.5 min-[1200px]:mx-70 min-[1200px]:mt-16.5 w-fit items-center justify-center rounded-full bg-(--ec-chip-bg) text-[11px] shadow-sm">
+  <a
             href="/try"
             class="rounded-full bg-(--ec-chip-on-bg) px-3 py-1.5 font-medium text-(--ec-chip-on-text)"
           >
@@ -394,27 +395,27 @@
           <a href="/docs" class="px-3 py-1.5 text-(--ec-chip-text)">Click through</a>
         </div>
 
-        <!-- API SECTION IMAGE (phone + laptop, 1022.97 x 467) -->
+        <!-- API SECTION IMAGE (phone + laptop, 1022 x 675). The aspect ratio sets the height; the image fills the link. -->
         <a
           href="/apis/authorization"
-          class="mx-auto mt-8 block aspect-[1022.97/467] w-full max-w-[1022.97px] md:mt-12 min-[1200px]:h-116.75 min-[1200px]:w-[1022.97px]"
+          class="mx-auto mt-8 block `aspect-1022/675` w-full max-w-[1022.97px] md:mt-12"
         >
           <img
             src="/authorization-section-image.png"
             alt="eCitizen app on a phone and One Login screen on a laptop"
-            width="1022.97"
-            height="467"
-            class="w-255.7 h-116.7  ml43.5 mr-26.25 object-contain object-bottom"
+            width="1022"
+            height="675"
+            class="block h-full w-full object-contain object-bottom"
           />
         </a>
 
         <!-- AUTHORIZATION OPTIONS -->
         <div
-          class="mx-auto mt-30.25 mb-12 grid w-full max-w-xl grid-cols-1 gap-4 text-left min-[900px]:max-w-none min-[900px]:grid-cols-3 min-[1200px]:mt-30.25 min-[1200px]:mb-27 min-[1200px]:h-53.25 min-[1200px]:w-325 min-[1200px]:gap-1"
+          class="mx-auto mt-10 mb-12 grid w-full max-w-xl grid-cols-1 gap-4 text-left min-[900px]:max-w-none min-[900px]:grid-cols-3 min-[1200px]:mt-10 min-[1200px]:mb-27 min-[1200px]:h-53.25 min-[1200px]:max-w-325 min-[1200px]:gap-1"
         >
           <!-- PASSWORD -->
           <div
-            class="w-full border-l-2 py-4 pr-2 pl-5 min-[1200px]:h-45.25 min-[1200px]:w-103 min-[1200px]:pl-6"
+            class="w-full border-l-2 py-4 pr-2 pl-5 min-[1200px]:h-45.25 min-[1200px]:max-w-103 min-[1200px]:pl-6"
             :class="active.auth === 0 ? 'border-(--ec-green)' : 'border-(--ec-tab-bar)'"
           >
             <a
@@ -441,7 +442,7 @@
 
           <!-- DIGITAL ID -->
           <div
-            class="w-full border-l-2 py-4 pr-2 pl-5 min-[1200px]:h-45.25 min-[1200px]:w-103 min-[1200px]:pl-6"
+            class="w-full border-l-2 py-4 pr-2 pl-5 min-[1200px]:h-45.25 min-[1200px]:max-w-103 min-[1200px]:pl-6"
             :class="active.auth === 1 ? 'border-(--ec-green)' : 'border-(--ec-tab-bar)'"
           >
             <a
@@ -468,7 +469,7 @@
 
           <!-- MCDAs -->
           <div
-            class="w-full border-l-2 py-4 pr-2 pl-5 min-[1200px]:h-45.25 min-[1200px]:w-103 min-[1200px]:pl-6"
+            class="w-full border-l-2 py-4 pr-2 pl-5 min-[1200px]:h-45.25 min-[1200px]:max-w-103 min-[1200px]:pl-6"
             :class="active.auth === 2 ? 'border-(--ec-green)' : 'border-(--ec-tab-bar)'"
           >
             <a
@@ -515,27 +516,27 @@
           Pesaflow integration
         </h2>
 
-        <!-- PESAFLOW SECTION IMAGE (phone + laptop, 1022.97 x 467) -->
+        <!-- PESAFLOW SECTION IMAGE (phone + laptop, 1023 x 467). The aspect ratio sets the height; the image fills the link. -->
         <a
-          href="/apis/authorization"
-          class="mx-auto mt-8 block aspect-[1022.97/467] w-full max-w-[1022.97px] md:mt-12 min-[1200px]:h- min-[1200px]:w-[1022.97px]"
+          href="/apis/pesaflow"
+          class="mx-auto mt-8 block aspect-[1022.97/467] w-full max-w-[1022.97px] md:mt-12"
         >
           <img
             src="/PESAFLOW SECTION IMAGE .png"
             alt="eCitizen app on a phone and One Login screen on a laptop"
-            width="1022.97"
+            width="1023"
             height="467"
-            class="w-255.7 h-116.7 object-contain object-bottom"
+            class="block h-full w-full object-contain object-bottom"
           />
         </a>
 
         <!-- PESAFLOW OPTIONS -->
         <div
-          class="mx-auto mt-10 mb-10 grid w-full max-w-xl grid-cols-1 gap-4 text-left min-[900px]:max-w-none min-[900px]:grid-cols-3 min-[1200px]:mt-30.25 min-[1200px]:mb-9.75 min-[1200px]:h-53.25 min-[1200px]:w-325.5 min-[1200px]:gap-1"
+          class="mx-auto mt-10 mb-10 grid w-full max-w-xl grid-cols-1 gap-4 text-left min-[900px]:max-w-none min-[900px]:grid-cols-3 min-[1200px]:mt-10 min-[1200px]:mb-9.75 min-[1200px]:h-53.25 min-[1200px]:max-w-325.5 min-[1200px]:gap-1"
         >
           <!-- MAKE PAYMENT -->
           <div
-            class="w-full border-l-2 py-4 pr-2 pl-5 min-[1200px]:h-45.25 min-[1200px]:w-103 min-[1200px]:pl-6"
+            class="w-full border-l-2 py-4 pr-2 pl-5 min-[1200px]:h-45.25 min-[1200px]:max-w-103 min-[1200px]:pl-6"
             :class="active.pesa === 0 ? 'border-(--ec-green)' : 'border-(--ec-tab-bar)'"
           >
             <a
@@ -562,7 +563,7 @@
 
           <!-- CHECKOUT -->
           <div
-            class="w-full border-l-2 py-4 pr-2 pl-5 min-[1200px]:h-45.25 min-[1200px]:w-103 min-[1200px]:pl-6"
+            class="w-full border-l-2 py-4 pr-2 pl-5 min-[1200px]:h-45.25 min-[1200px]:max-w-103 min-[1200px]:pl-6"
             :class="active.pesa === 1 ? 'border-(--ec-green)' : 'border-(--ec-tab-bar)'"
           >
             <a
@@ -589,7 +590,7 @@
 
           <!-- CONFIGURE CHANNELS -->
           <div
-            class="w-full border-l-2 py-4 pr-2 pl-5 min-[1200px]:h-45.25 min-[1200px]:w-103 min-[1200px]:pl-6"
+            class="w-full border-l-2 py-4 pr-2 pl-5 min-[1200px]:h-45.25 min-[1200px]:max-w-103 min-[1200px]:pl-6"
             :class="active.pesa === 2 ? 'border-(--ec-green)' : 'border-(--ec-tab-bar)'"
           >
             <a
