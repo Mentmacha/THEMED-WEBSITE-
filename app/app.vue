@@ -387,7 +387,7 @@
         </h2>
 
         <!-- NAVIGATION PILLS (theme aware) -->
-        <div class="mb-8 mt-10 flex h-7.5 w-51.25 items-center gap-2 rounded-full bg-(--ec-chip-on-bg) pt-1 pr-1 pb-1 pl-3 text-xs leading-4.5 font-medium whitespace-nowrap text-(--ec-chip-on-text) min-[1200px]:mx-70 min-[1200px]:mt-16.5">
+        <div class="mb-8 mt-10 flex h-7.5 w-51.30 items-center gap-2 rounded-full bg-(--ec-chip-on-bg) pt-1 pr-1 pb-1 pl-3 text-xs leading-4.5 font-medium whitespace-nowrap text-(--ec-chip-on-text) min-[1200px]:mx-70 min-[1200px]:mt-16.5">
           <a href="/try" class="shrink-0">Try it out below</a>
           <a
             href="/docs"
