@@ -400,7 +400,7 @@
         <!-- API SECTION IMAGE (phone + laptop, 1022 x 675). The aspect ratio sets the height; the image fills the link. -->
         <a
           href="/apis/authorization"
-          class="mx-auto mt-8 block aspect-[1022/675] w-full max-w-[1022.97px] md:mt-12"
+          class="mx-auto mt-8 block `aspect-1022/675` w-full max-w-[1022.97px] md:mt-12"
         >
           <img
             src="/authorization-section-image.png"
@@ -922,7 +922,7 @@ function pillClass(on, tone) {
 :root {
   --ec-bg: #ffffff;
   --ec-text: #1a1a1a;
-  --ec-muted: #667085;
+  --ec-muted: #222222;
   --ec-surface: #e6e6e6;
   --ec-border: #e4e7ec;
   --ec-nav-text: #1f1f1f;
@@ -977,7 +977,7 @@ function pillClass(on, tone) {
 :root[data-theme='dark'] {
   --ec-bg: #151515;
   --ec-text: #f2f2f2;
-  --ec-muted: #a3a3a3;
+  --ec-muted: #222222;
   --ec-surface: #232323;
   --ec-border: #333333;
   --ec-nav-text: #f2f2f2;
@@ -1057,7 +1057,7 @@ html {
 
 @property --ec-bg { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
 @property --ec-text { syntax: '<color>'; inherits: true; initial-value: #1a1a1a; }
-@property --ec-muted { syntax: '<color>'; inherits: true; initial-value: #667085; }
+@property --ec-muted { syntax: '<color>'; inherits: true; initial-value: #222222; }
 @property --ec-surface { syntax: '<color>'; inherits: true; initial-value: #e6e6e6; }
 @property --ec-border { syntax: '<color>'; inherits: true; initial-value: #e4e7ec; }
 @property --ec-nav-text { syntax: '<color>'; inherits: true; initial-value: #1f1f1f; }
