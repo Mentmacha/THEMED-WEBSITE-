@@ -940,8 +940,8 @@ function pillClass(on, tone) {
   --ec-toggle-knob: #ffffff;
   --ec-toggle-icon: #8c8c8c;
   --ec-tab-bar: #e4e7ec;
-  --ec-pill-bg: #f2f4f7;
-  --ec-pill-text: #344054;
+  --ec-pill-bg: #E6E6E6;
+  --ec-pill-text: #222222;
   --ec-pill-on-bg: #14b04c;
   --ec-pill-on-bg-auth: #0a993d;
   --ec-pill-on-text: #ffffff;
@@ -995,8 +995,8 @@ function pillClass(on, tone) {
   --ec-toggle-knob: #3b3b3b;
   --ec-toggle-icon: #ffffff;
   --ec-tab-bar: #333333;
-  --ec-pill-bg: #232323;
-  --ec-pill-text: #cfcfcf;
+  --ec-pill-bg: #222222;
+  --ec-pill-text: #C5C5C5;
   --ec-pill-on-bg: #14b04c;
   --ec-pill-on-bg-auth: #0a993d;
   --ec-pill-on-text: #ffffff;
