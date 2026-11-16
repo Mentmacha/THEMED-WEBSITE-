@@ -977,7 +977,7 @@ function pillClass(on, tone) {
 :root[data-theme='dark'] {
   --ec-bg: #151515;
   --ec-text: #f2f2f2;
-  --ec-muted: #222222;
+  --ec-muted: #FFFFFF;
   --ec-surface: #232323;
   --ec-border: #333333;
   --ec-nav-text: #f2f2f2;
