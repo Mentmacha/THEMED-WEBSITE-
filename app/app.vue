@@ -641,7 +641,7 @@
             <h2 class="max-w-214.75 text-3xl font-semibold leading-[1.2] sm:text-5xl md:text-7xl min-[1380px]:text-[96px]">
               Instant developer environments
             </h2>
-            <span class="mt-6 text-sm min-[1200px]:mt-8.25">Learn More</span>
+            <span class="mt-6 px-7 py-4 text-sm min-[1200px]:mt-8.25">Learn More</span>
           </div>
         </a>
       </section>
