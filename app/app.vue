@@ -1,4 +1,4 @@
-<template>
+=<template>
   <div
     class="ec-root w-full max-w-none overflow-x-clip font-['Lexend',sans-serif] text-(--ec-text)"
     :class="{ 'ec-ready': ready }"
@@ -381,13 +381,13 @@
         <p class="w-full text-center text-base leading-6 font-semibold text-[#14B04C] min-[1200px]:h-6">API</p>
 
         <h2
-          class="mt-3 w-full text-center text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-[48px]"
+          class="mt-3 w-full text-center text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-[40px]"
         >
           eCitizen Authorization API v2.0.0
         </h2>
 
         <!-- NAVIGATION PILLS (theme aware) -->
-        <div class="mb-8 mt-16.75 flex h-7.5 w-51.30 items-center gap-2 rounded-full bg-(--ec-chip-on-bg) pt-1 pr-1 pb-1 pl-3 text-xs leading-4.5 font-medium whitespace-nowrap text-(--ec-chip-on-text) min-[1200px]:mx-70 min-[1200px]:mt-16.5">
+        <div class="mb-8 mt-10 flex h-7.5 w-51.25 items-center gap-2 rounded-full bg-(--ec-chip-on-bg) pt-1 pr-1 pb-1 pl-3 text-xs leading-4.5 font-medium whitespace-nowrap text-(--ec-chip-on-text) min-[1200px]:mx-70 min-[1200px]:mt-16.5">
           <a href="/try" class="shrink-0">Try it out below</a>
           <a
             href="/docs"
@@ -422,7 +422,7 @@
           >
             <a
               href="/apis/authorization/password"
-              class="mb-4 inline-flex h-11.25  items-center gap-2.5 rounded-full px-4 text-sm font-semibold whitespace-nowrap transition-colors min-[1200px]:mb-8 min-[1200px]:w-61.75"
+              class="mb-4 inline-flex h-11.25 items-center gap-2.5 rounded-full px-4 text-sm font-semibold whitespace-nowrap transition-colors min-[1200px]:mb-8 min-[1200px]:w-61.75"
               :class="pillClass(active.auth === 0, 'auth')"
               @click.prevent="active.auth = 0"
             >
@@ -734,7 +734,7 @@
               />
             </a>
 
-            <p class="mt-6 text-md leading-6 text-gray-200 min-[1200px]:mt-8">
+            <p class="mt-6 text-sm leading-6 text-gray-200 min-[1200px]:mt-8">
               Giving Kenyans easy access to automated<br class="hidden min-[1200px]:block" />
               services.
             </p>
@@ -757,19 +757,24 @@
         >
           <p>© 2023 eCitizen. All rights reserved.</p>
 
-          <!-- SOCIAL MEDIA ICONS -->
-          <div class="flex items-center gap-6">
+          <!-- SOCIAL MEDIA ICONS (3 x 24px, 24px gap = 120 x 24) -->
+          <div class="flex h-6 w-30 items-center gap-6">
             <!-- TWITTER -->
             <a
               href="https://twitter.com/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Twitter"
-              class="text-white transition-opacity hover:opacity-70"
+              class="block transition-opacity hover:opacity-70"
             >
-              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M22 5.9c-.7.3-1.5.5-2.4.6.9-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1-.8-.8-1.8-1.3-3-1.3-2.3 0-4.1 1.8-4.1 4.1 0 .3 0 .6.1.9-3.4-.2-6.4-1.8-8.4-4.3-.4.6-.6 1.3-.6 2.1 0 1.4.7 2.7 1.8 3.4-.7 0-1.3-.2-1.9-.5v.1c0 2 1.4 3.7 3.3 4-.3.1-.7.1-1.1.1-.3 0-.5 0-.8-.1.5 1.6 2 2.8 3.8 2.8-1.4 1.1-3.2 1.8-5.1 1.8-.3 0-.7 0-1-.1 1.8 1.2 4 1.8 6.3 1.8 7.5 0 11.7-6.2 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2.1z" />
-              </svg>
+              <img
+                src="/App x icon.png"
+                alt="/App x icon.png"
+                aria-hidden="true"
+                width="24"
+                height="24"
+                class="h-6 w-6 object-contain"
+              />
             </a>
 
             <!-- LINKEDIN -->
@@ -778,11 +783,16 @@
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              class="text-white transition-opacity hover:opacity-70"
+              class="block transition-opacity hover:opacity-70"
             >
-              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M4.98 3.5a2.5 2.5 0 11-.01 5.01 2.5 2.5 0 01.01-5.01zM3 9.75h4V21H3V9.75zm6.5 0h3.8v1.54h.06c.53-1 1.84-2.04 3.78-2.04 4.04 0 4.78 2.66 4.78 6.12V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.69V21h-4V9.75z" />
-              </svg>
+              <img
+                src="/LinkedIn icon.png"
+                alt="/LinkedIn icon.png"
+                aria-hidden="true"
+                width="24"
+                height="24"
+                class="h-6 w-6 object-contain"
+              />
             </a>
 
             <!-- FACEBOOK -->
@@ -791,11 +801,16 @@
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              class="text-white transition-opacity hover:opacity-70"
+              class="block transition-opacity hover:opacity-70"
             >
-              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M13.5 22v-8.2h2.8l.5-3.4h-3.3V8.3c0-1 .3-1.6 1.7-1.6H17V3.6c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.8H7.8v3.4h2.8V22h2.9z" />
-              </svg>
+              <img
+                src="/Facebook icon.png"
+                alt="/Facebook icon.png"
+                aria-hidden="true"
+                width="24"
+                height="24"
+                class="h-6 w-6 object-contain"
+              />
             </a>
           </div>
         </div>
@@ -906,9 +921,9 @@ function pillClass(on, tone) {
 
 :root {
   --ec-bg: #ffffff;
-  --ec-text: #222222;
+  --ec-text: #1a1a1a;
   --ec-muted: #667085;
-  --ec-surface: #E6E6E6;
+  --ec-surface: #e6e6e6;
   --ec-border: #e4e7ec;
   --ec-nav-text: #1f1f1f;
   --ec-nav-active: #5db872;
@@ -1043,7 +1058,7 @@ html {
 @property --ec-bg { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
 @property --ec-text { syntax: '<color>'; inherits: true; initial-value: #1a1a1a; }
 @property --ec-muted { syntax: '<color>'; inherits: true; initial-value: #667085; }
-@property --ec-surface { syntax: '<color>'; inherits: true; initial-value: #E6E6E6; }
+@property --ec-surface { syntax: '<color>'; inherits: true; initial-value: #e6e6e6; }
 @property --ec-border { syntax: '<color>'; inherits: true; initial-value: #e4e7ec; }
 @property --ec-nav-text { syntax: '<color>'; inherits: true; initial-value: #1f1f1f; }
 @property --ec-nav-active { syntax: '<color>'; inherits: true; initial-value: #5db872; }
