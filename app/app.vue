@@ -378,29 +378,29 @@
       <section
         class="mx-auto mt-16 flex w-full max-w-337.5 flex-col items-center px-4 text-center sm:px-8 md:mt-24 min-[1200px]:mt-50.75 min-[1200px]:px-0"
       >
-        <p class="w-full text-center text-xs font-medium text-(--ec-green-text) min-[1200px]:h-6">API</p>
+        <p class="w-full text-center text-base leading-6 font-semibold text-[#14B04C] min-[1200px]:h-6">API</p>
 
         <h2
-          class="mt-3 w-full text-center text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-[40px]"
+          class="mt-3 w-full text-center text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-[48px]"
         >
           eCitizen Authorization API v2.0.0
         </h2>
 
         <!-- NAVIGATION PILLS (theme aware) -->
-<div class="mb-8 mt-10 flex h-7.5 min-[1200px]:mx-70 min-[1200px]:mt-16.5 w-fit items-center justify-center rounded-full bg-(--ec-chip-bg) text-[11px] shadow-sm">
-  <a
-            href="/try"
-            class="rounded-full bg-(--ec-chip-on-bg) px-3 py-1.5 font-medium text-(--ec-chip-on-text)"
+        <div class="mb-8 mt-16.75 flex h-7.5 w-51.30 items-center gap-2 rounded-full bg-(--ec-chip-on-bg) pt-1 pr-1 pb-1 pl-3 text-xs leading-4.5 font-medium whitespace-nowrap text-(--ec-chip-on-text) min-[1200px]:mx-70 min-[1200px]:mt-16.5">
+          <a href="/try" class="shrink-0">Try it out below</a>
+          <a
+            href="/docs"
+            class="shrink-0 rounded-full bg-(--ec-chip-bg) px-3 py-0.5"
           >
-            Try it out below
+            Click through
           </a>
-          <a href="/docs" class="px-3 py-1.5 text-(--ec-chip-text)">Click through</a>
         </div>
 
         <!-- API SECTION IMAGE (phone + laptop, 1022 x 675). The aspect ratio sets the height; the image fills the link. -->
         <a
           href="/apis/authorization"
-          class="mx-auto mt-8 block `aspect-1022/675` w-full max-w-[1022.97px] md:mt-12"
+          class="mx-auto mt-8 block aspect-[1022/675] w-full max-w-[1022.97px] md:mt-12"
         >
           <img
             src="/authorization-section-image.png"
@@ -422,7 +422,7 @@
           >
             <a
               href="/apis/authorization/password"
-              class="mb-4 inline-flex h-11.25 items-center gap-2.5 rounded-full px-4 text-sm font-semibold whitespace-nowrap transition-colors min-[1200px]:mb-8 min-[1200px]:w-61.75"
+              class="mb-4 inline-flex h-11.25  items-center gap-2.5 rounded-full px-4 text-sm font-semibold whitespace-nowrap transition-colors min-[1200px]:mb-8 min-[1200px]:w-61.75"
               :class="pillClass(active.auth === 0, 'auth')"
               @click.prevent="active.auth = 0"
             >
@@ -510,7 +510,7 @@
       <section
         class="mx-auto flex w-full max-w-337.5 flex-col items-center px-4 text-center sm:px-8 min-[1200px]:px-0"
       >
-        <p class="w-full text-center text-xs font-medium text-(--ec-green-text) min-[1200px]:h-6">API</p>
+        <p class="w-full text-center text-base leading-6 font-semibold text-[#14B04C] min-[1200px]:h-6">API</p>
 
         <h2
           class="mt-3 w-full text-center text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-[40px]"
@@ -662,7 +662,7 @@
                 class="h-52 w-full object-cover transition-transform duration-300 hover:scale-105 sm:h-60"
               />
             </a>
-            <p class="mt-5 text-xs font-medium text-(--ec-green-text)">16 Jan 2022</p>
+            <p class="mt-5 text-sm leading-5 font-semibold text-[#14B04C]">16 Jan 2022</p>
             <a
               href="/news/sign-in-with-digital-id"
               class="mt-1.5 flex items-start justify-between gap-2 text-lg font-medium hover:text-(--ec-green-text)"
@@ -681,7 +681,7 @@
                 class="h-52 w-full object-cover transition-transform duration-300 hover:scale-105 sm:h-60"
               />
             </a>
-            <p class="mt-5 text-xs font-medium text-(--ec-green-text)">15 Jan 2022</p>
+            <p class="mt-5 text-sm leading-5 font-semibold text-[#14B04C]">15 Jan 2022</p>
             <a
               href="/news/what-is-wireframing"
               class="mt-1.5 flex items-start justify-between gap-2 text-lg font-medium hover:text-(--ec-green-text)"
@@ -700,7 +700,7 @@
                 class="h-52 w-full object-cover transition-transform duration-300 hover:scale-105 sm:h-60"
               />
             </a>
-            <p class="mt-5 text-xs font-medium text-(--ec-green-text)">14 Jan 2022</p>
+            <p class="mt-5 text-sm leading-5 font-semibold text-[#14B04C]">14 Jan 2022</p>
             <a
               href="/news/payment-checkout"
               class="mt-1.5 flex items-start justify-between gap-2 text-lg font-medium hover:text-(--ec-green-text)"
@@ -734,7 +734,7 @@
               />
             </a>
 
-            <p class="mt-6 text-sm leading-6 text-gray-200 min-[1200px]:mt-8">
+            <p class="mt-6 text-md leading-6 text-gray-200 min-[1200px]:mt-8">
               Giving Kenyans easy access to automated<br class="hidden min-[1200px]:block" />
               services.
             </p>
@@ -906,15 +906,15 @@ function pillClass(on, tone) {
 
 :root {
   --ec-bg: #ffffff;
-  --ec-text: #1a1a1a;
+  --ec-text: #222222;
   --ec-muted: #667085;
-  --ec-surface: #f2f4f7;
+  --ec-surface: #E6E6E6;
   --ec-border: #e4e7ec;
   --ec-nav-text: #1f1f1f;
   --ec-nav-active: #5db872;
   --ec-green: #4fae72;
   --ec-green-strong: #439a63;
-  --ec-green-text: #3f9a5f;
+  --ec-green-text: #14b04c;
   --ec-search-bg: rgba(255, 255, 255, 0.7);
   --ec-search-border: #d6d6d6;
   --ec-search-icon: #9a9a9a;
@@ -932,7 +932,7 @@ function pillClass(on, tone) {
   --ec-pill-on-text: #ffffff;
   --ec-chip-bg: #ffffff;
   --ec-chip-on-bg: #e3f5ea;
-  --ec-chip-on-text: #15803d;
+  --ec-chip-on-text: #067647;
   --ec-chip-text: #222222;
   --ec-btn-bg: #14b04c;
   --ec-btn-bg-hover: #109a3e;
@@ -969,7 +969,7 @@ function pillClass(on, tone) {
   --ec-nav-active: #5ed06f;
   --ec-green: #62d67c;
   --ec-green-strong: #52c46c;
-  --ec-green-text: #5ed06f;
+  --ec-green-text: #14b04c;
   --ec-search-bg: rgba(35, 35, 35, 0.6);
   --ec-search-border: #3b3b3b;
   --ec-search-icon: #8a8a8a;
@@ -1043,13 +1043,13 @@ html {
 @property --ec-bg { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
 @property --ec-text { syntax: '<color>'; inherits: true; initial-value: #1a1a1a; }
 @property --ec-muted { syntax: '<color>'; inherits: true; initial-value: #667085; }
-@property --ec-surface { syntax: '<color>'; inherits: true; initial-value: #f2f4f7; }
+@property --ec-surface { syntax: '<color>'; inherits: true; initial-value: #E6E6E6; }
 @property --ec-border { syntax: '<color>'; inherits: true; initial-value: #e4e7ec; }
 @property --ec-nav-text { syntax: '<color>'; inherits: true; initial-value: #1f1f1f; }
 @property --ec-nav-active { syntax: '<color>'; inherits: true; initial-value: #5db872; }
 @property --ec-green { syntax: '<color>'; inherits: true; initial-value: #4fae72; }
 @property --ec-green-strong { syntax: '<color>'; inherits: true; initial-value: #439a63; }
-@property --ec-green-text { syntax: '<color>'; inherits: true; initial-value: #3f9a5f; }
+@property --ec-green-text { syntax: '<color>'; inherits: true; initial-value: #14b04c; }
 @property --ec-search-bg { syntax: '<color>'; inherits: true; initial-value: rgba(255, 255, 255, 0.7); }
 @property --ec-search-border { syntax: '<color>'; inherits: true; initial-value: #d6d6d6; }
 @property --ec-search-icon { syntax: '<color>'; inherits: true; initial-value: #9a9a9a; }
@@ -1067,7 +1067,7 @@ html {
 @property --ec-pill-on-text { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
 @property --ec-chip-bg { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
 @property --ec-chip-on-bg { syntax: '<color>'; inherits: true; initial-value: #e3f5ea; }
-@property --ec-chip-on-text { syntax: '<color>'; inherits: true; initial-value: #15803d; }
+@property --ec-chip-on-text { syntax: '<color>'; inherits: true; initial-value: #067647; }
 @property --ec-chip-text { syntax: '<color>'; inherits: true; initial-value: #222222; }
 @property --ec-btn-bg { syntax: '<color>'; inherits: true; initial-value: #14b04c; }
 @property --ec-btn-bg-hover { syntax: '<color>'; inherits: true; initial-value: #109a3e; }
