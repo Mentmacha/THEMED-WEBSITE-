@@ -665,7 +665,7 @@
             <p class="mt-5 text-sm leading-5 font-semibold text-[#14B04C]">16 Jan 2022</p>
             <a
               href="/news/sign-in-with-digital-id"
-              class="mt-1.5 flex items-start justify-between gap-2 text-lg font-medium hover:text-(--ec-green-text)"
+              class="mt-1.5 flex items-start justify-between gap-2 text-lg font-medium text-(--ec-news-title) hover:text-(--ec-green-text)"
             >
               Sign in with Digital ID
               <svg class="mt-1.5 h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9" /></svg>
@@ -684,7 +684,7 @@
             <p class="mt-5 text-sm leading-5 font-semibold text-[#14B04C]">15 Jan 2022</p>
             <a
               href="/news/what-is-wireframing"
-              class="mt-1.5 flex items-start justify-between gap-2 text-lg font-medium hover:text-(--ec-green-text)"
+              class="mt-1.5 flex items-start justify-between gap-2 text-lg font-medium text-(--ec-news-title) hover:text-(--ec-green-text)"
             >
               What is Wireframing?
               <svg class="mt-1.5 h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9" /></svg>
@@ -703,7 +703,7 @@
             <p class="mt-5 text-sm leading-5 font-semibold text-[#14B04C]">14 Jan 2022</p>
             <a
               href="/news/payment-checkout"
-              class="mt-1.5 flex items-start justify-between gap-2 text-lg font-medium hover:text-(--ec-green-text)"
+              class="mt-1.5 flex items-start justify-between gap-2 text-lg font-medium text-(--ec-news-title) hover:text-(--ec-green-text)"
             >
               Payment Checkout
               <svg class="mt-1.5 h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9" /></svg>
@@ -968,6 +968,7 @@ function pillClass(on, tone) {
   --ec-meets-3: #aebf46;
   --ec-meets-4: #b8a63e;
   --ec-meets-5: #c4852f;
+  --ec-news-title: #222222;
 
   color-scheme: light;
 }
@@ -1023,6 +1024,7 @@ function pillClass(on, tone) {
   --ec-meets-3: #aebf46;
   --ec-meets-4: #b8a63e;
   --ec-meets-5: #c4852f;
+   --ec-news-title: #FFF7F5;
 
   color-scheme: dark;
 }
