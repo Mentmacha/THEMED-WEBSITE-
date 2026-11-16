@@ -638,7 +638,7 @@
             class="h-full w-full object-cover grayscale"
           />
           <div class="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
-            <h2 class="max-w-214.75 text-3xl font-semibold leading-[1.2] sm:text-5xl md:text-7xl min-[1380px]:text-[88px]">
+            <h2 class="max-w-214.75 text-3xl font-semibold leading-[1.2] sm:text-5xl md:text-7xl min-[1380px]:text-[96px]">
               Instant developer environments
             </h2>
             <span class="mt-6 text-sm min-[1200px]:mt-8.25">Learn More</span>
