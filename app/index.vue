@@ -235,14 +235,16 @@
             </NuxtLink>
 
            
+
 <!-- Gradient heading -->
 <h1
-  class="mt-2 mb-2 bg-[linear-gradient(100deg,rgba(4,85,33,0.7)_0%,#1e9034_25%,#7dcc70_41%,#a9bf36_67%,#db6900_100%)] bg-clip-text text-[34px] leading-[1.3] font-semibold text-transparent sm:text-5xl sm:leading-[1.2] md:text-6xl md:leading-[1.15] min-[75rem]:mt-11.25 min-[75rem]:mb-9 min-[75rem]:h-40 min-[90rem]:text-[70px] min-[90rem]:whitespace-nowrap"
+  class="mt-2 mb-2 bg-[linear-gradient(100deg,rgba(4,85,33,0.7)_0%,#1e9034_25%,#7dcc70_41%,#a9bf36_67%,#db6900_100%)] bg-clip-text text-[34px] leading-[1.3] font-semibold text-transparent sm:text-5xl sm:leading-[1.2] md:text-6xl md:leading-[1.15] min-[75rem]:mt-11.25 min-[75rem]:mb-9 min-[75rem]:h-auto min-[90rem]:text-[70px] min-[90rem]:leading-[1.2] min-[90rem]:whitespace-nowrap"
 >
   Innovation
   <span class="inline-block bg-[linear-gradient(115deg,#74b86a_0%,#98ca70_30%,#aebf46_55%,#b8a63e_78%,#c4852f_100%)] bg-clip-text text-transparent">Meets</span><br class="hidden min-[75rem]:block" />
   Integration.
 </h1>
+
 
 
             <!-- Description: font + colour set once, both paragraphs inherit -->
