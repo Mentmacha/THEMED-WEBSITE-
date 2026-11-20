@@ -1,11 +1,28 @@
- @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 @import "tailwindcss";
 
- :root {
-  --font-lexend: "Lexend", sans-serif;
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* LEXEND FONT */
+@font-face {
+  font-family: "Lexend";
+  src: url("../fonts/Lexend-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
 
-body {
-  font-family: "Lexend", sans-serif;
-  overflow-x: hidden;
+/* INTER FONT */
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/Inter-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* TAILWIND FONT THEME */
+@theme {
+  --font-lexend: "Lexend", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --font-sans: "Lexend", sans-serif;
 }

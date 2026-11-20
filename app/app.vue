@@ -1,880 +1,675 @@
 <template>
-  <div class="mx-auto flex min-h-screen w-full max-w-378 flex-col overflow-x-clip bg-(--ec-bg) font-['Lexend',sans-serif] text-(--ec-text) min-[90rem]:h-1311.25 min-[90rem]:w-378 min-[90rem]:max-w-full">
-    <!-- ================= NAV BAR ================= -->
-    <header class="relative z-30">
-      <div class="mx-auto flex w-full max-w-378 items-center justify-between px-4 py-3 min-[75rem]:justify-start min-[75rem]:p-0">
-        <!-- COMPACT ONLY: logo -->
-        <a href="/" class="shrink-0 min-[75rem]:hidden" aria-label="eCitizen Developer Sandbox">
-          <Transition
-            mode="out-in"
-            enter-active-class="transition-opacity duration-250 ease-in-out motion-reduce:transition-none"
-            leave-active-class="transition-opacity duration-250 ease-in-out motion-reduce:transition-none"
-            enter-from-class="opacity-0"
-            leave-to-class="opacity-0"
+  <!-- PAGE ROOT: full-width wrapper, sets the base font + light/dark background, clips the full-bleed banner/footer overflow -->
+  <div class="w-full overflow-x-clip bg-[#ffffff] font-lexend transition-colors duration-500 motion-reduce:transition-none dark:bg-[#111111]">
+
+    <!-- PAGE FRAME: centred column. 1512px design frame on very wide screens, fluid below that -->
+    <div class="mx-auto flex min-h-screen w-full  flex-col min-[90rem]:h-1311.25 min-[90rem]:w-378 min-[90rem]:max-w-full">
+
+      <!-- ================= NAV BAR: sticky header (logo, links, search, auth buttons, theme toggle, mobile menu) ================= -->
+      <header class="sticky top-0 z-30 bg-white transition-colors duration-500 motion-reduce:transition-none dark:bg-[#151515]">
+        <div class="mx-auto flex w-full  items-center justify-between px-4 py-3 min-[75rem]:justify-start min-[75rem]:p-0">
+
+          <!-- Compact logo (below 1200px). Parent sets the size, both images just follow it -->
+          <NuxtLink
+            to="/"
+            aria-label="eCitizen Developer Sandbox"
+            class="shrink-0 min-[75rem]:hidden [&>img]:h-9 [&>img]:w-auto [&>img]:object-contain [&>img]:object-left sm:[&>img]:h-10"
           >
-            <img
-              v-if="theme !== 'dark'"
-              key="light"
-              src="/ecitizen%20hero%20logo%20.png"
-              alt="eCitizen Developer Sandbox"
-              class="h-9 w-auto object-contain object-left sm:h-10"
-            />
-            <img
-              v-else
-              key="dark"
-              src="/Dark%20mode%20ecitizen.png"
-              alt="eCitizen Developer Sandbox"
-              class="h-9 w-auto object-contain object-left sm:h-10"
-            />
-          </Transition>
-        </a>
+            <img :src="`${base}ecitizen-hero-logo.png`" alt="eCitizen Developer Sandbox" class="block dark:hidden" />
+            <img :src="`${base}Dark-mode-ecitizen.png`" alt="eCitizen Developer Sandbox" class="hidden dark:block" />
+          </NuxtLink>
 
-        <!-- DESKTOP (1200px and up): NAV SECTION + SEPARATE TOGGLE -->
-        <div class="mt-6.25 mr-[54.95px] ml-20.25 hidden h-11 w-full max-w-[1376.05px] min-w-0 items-center min-[75rem]:flex">
-          <!-- NAV SECTION -->
-          <ul class="flex h-11 min-w-0 flex-1 items-center text-sm text-(--ec-nav-text)">
-            <!-- HOME -->
-            <li class="shrink-0">
-              <a
-                href="/"
-                class="flex h-6 w-16.25 items-center leading-6 font-semibold text-(--ec-nav-home) transition-colors hover:text-(--ec-green-strong)"
-              >Home</a>
-            </li>
+          <!-- Desktop nav (1200px and up): link list + separate theme toggle -->
+          <div class="mt-6.25 mr-[54.95px] ml-20.25 hidden h-11 w-full max-w-[1376.05px] min-w-0 items-center min-[75rem]:flex">
 
-            <!-- APIs WITH CLICK DROPDOWN -->
-            <li data-menu class="group relative ml-14.25 flex h-6 w-20 shrink-0 items-center gap-2">
-              <a
-                href="/apis"
-                class="flex items-center leading-6 transition-colors group-hover:text-(--ec-nav-active)"
-              >APIs</a>
+            <!-- Link list: text size / colour are set here and inherited by every link -->
+            <ul class="flex h-11 min-w-0 flex-1 items-center text-sm leading-6 text-[#1f1f1f] dark:text-[#f2f2f2]">
+              <!-- Home (current page, green) -->
+              <li class="shrink-0">
+                <NuxtLink to="/" class="flex h-6 w-16.25 items-center font-semibold text-[#34C759] transition-colors dark:text-[#18D75D]">Home</NuxtLink>
+              </li>
 
-              <button
-                type="button"
-                aria-label="Toggle APIs menu"
-                :aria-expanded="apiOpen"
-                class="flex size-6 cursor-pointer items-center justify-center transition-colors group-hover:text-(--ec-nav-active)"
-                @click="toggleApiMenu"
-              >
-                <svg
-                  class="size-4.5 transition-transform duration-300"
-                  :class="apiOpen && 'rotate-180'"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
+              <!-- APIs link + click dropdown -->
+              <li data-menu class="group relative ml-14.25 flex h-6 w-20 shrink-0 items-center gap-2">
+                <NuxtLink
+                  to="/apis"
+                  class="flex items-center transition-colors group-hover:text-[#5db872] dark:group-hover:text-[#5ed06f]"
+                >APIs</NuxtLink>
+
+                <button
+                  type="button"
+                  aria-label="Toggle APIs menu"
+                  :aria-expanded="apiOpen"
+                  class="flex size-6 cursor-pointer items-center justify-center transition-colors group-hover:text-[#5db872] dark:group-hover:text-[#5ed06f]"
+                  @click="toggleApiMenu"
                 >
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              <div v-show="apiOpen" class="absolute top-full left-0 z-50 pt-2">
-                <ul class="w-44 rounded-xl border border-(--ec-border) bg-(--ec-bg) py-2 shadow-lg">
-                  <li>
-                    <a
-                      href="/apis/authorization"
-                      class="block px-4 py-2 text-sm text-(--ec-muted) transition-colors hover:bg-(--ec-surface) hover:text-(--ec-nav-active)"
-                    >Authorization API</a>
-                  </li>
-                  <li>
-                    <a
-                      href="/apis/pesaflow"
-                      class="block px-4 py-2 text-sm text-(--ec-muted) transition-colors hover:bg-(--ec-surface) hover:text-(--ec-nav-active)"
-                    >Pesaflow integration</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-            <!-- DOCUMENTATION -->
-            <li class="ml-12.5 shrink-0">
-              <a
-                href="/docs"
-                class="flex h-6 w-31.25 items-center leading-6 whitespace-nowrap transition-colors hover:text-(--ec-nav-active)"
-              >Documentation</a>
-            </li>
-
-            <!-- HELP & SUPPORT -->
-            <li class="ml-14.25 shrink-0">
-              <a
-                href="/support"
-                class="flex h-6 w-31.25 items-center leading-6 whitespace-nowrap transition-colors hover:text-(--ec-nav-active)"
-              >Help &amp; Support</a>
-            </li>
-
-            <!-- SEARCH FIELD (shrinks on narrower desktops) -->
-            <li class="ml-12.25 h-8.5 w-90.25 min-w-32 shrink">
-              <form
-                role="search"
-                class="flex h-8.5 w-full items-center gap-5.5 rounded-full border border-(--ec-search-border) bg-(--ec-search-bg) pl-2 transition-colors focus-within:border-(--ec-nav-active)"
-                @submit.prevent
-              >
-                <a href="/search" aria-label="Search" class="inline-flex shrink-0 text-(--ec-search-icon)">
-                  <svg class="size-5.75" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                    <circle cx="11" cy="11" r="8" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35" />
+                  <svg
+                    class="size-4.5 transition-transform duration-300"
+                    :class="apiOpen && 'rotate-180'"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                   </svg>
-                </a>
-                <input
-                  id="site-search"
-                  name="q"
-                  type="search"
-                  aria-label="Search"
-                  class="size-full min-w-0 bg-transparent px-3 text-sm text-(--ec-nav-text) outline-none"
-                />
-              </form>
-            </li>
+                </button>
 
-            <!-- LOG IN + REGISTER -->
-            <li class="ml-auto flex shrink-0 items-center">
-              <a
-                href="/login"
-                class="ml-27.5 flex h-11 w-19.75 items-center justify-center text-sm leading-6 font-medium whitespace-nowrap transition-colors hover:text-(--ec-nav-active)"
-              >Log in</a>
-              <a
-                href="/register"
-                class="mb-1 ml-3 flex h-10 w-22.25 items-center justify-center rounded-full bg-(--ec-nav-reg) font-['Inter'] text-sm font-semibold leading-5 text-white transition-colors hover:opacity-90"
-              >
-                Register
-              </a>
-            </li>
-          </ul>
+                <!-- Dropdown panel -->
+                <div v-show="apiOpen" class="absolute top-full left-0 z-50 pt-2">
+                  <ul class="w-44 rounded-xl border border-[#e4e7ec] bg-white py-2 text-[#222222] shadow-lg dark:border-[#333333] dark:bg-[#151515] dark:text-[#fff7f5]">
+                    <li>
+                      <NuxtLink
+                        to="/apis/authorization"
+                        class="block px-4 py-2 transition-colors hover:bg-[#e6e6e6] hover:text-[#5db872] dark:hover:bg-[#232323] dark:hover:text-[#5ed06f]"
+                      >Authorization API</NuxtLink>
+                    </li>
+                    <li>
+                      <NuxtLink
+                        to="/apis/pesaflow"
+                        class="block px-4 py-2 transition-colors hover:bg-[#e6e6e6] hover:text-[#5db872] dark:hover:bg-[#232323] dark:hover:text-[#5ed06f]"
+                      >Pesaflow integration</NuxtLink>
+                    </li>
+                  </ul>
+                </div>
+              </li>
 
-          <!-- THEME TOGGLE (desktop) - separate section -->
-          <button
-            type="button"
-            role="switch"
-            aria-label="Toggle theme"
-            :aria-checked="theme === 'dark'"
-            class="relative ml-[73.95px] block h-5 w-9 shrink-0 cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--ec-green)"
-            @click="toggleTheme"
-          >
-            <img
-              src="/White%20mode%20switch.png"
-              alt=""
-              aria-hidden="true"
-              draggable="false"
-              class="absolute inset-0 size-full object-contain transition-opacity duration-500 ease-in-out select-none motion-reduce:transition-none"
-              :class="theme === 'dark' ? 'opacity-0' : 'opacity-100'"
-            />
-            <img
-              src="/Dark%20mode%20switch.png"
-              alt=""
-              aria-hidden="true"
-              draggable="false"
-              class="absolute inset-0 size-full object-contain transition-opacity duration-500 ease-in-out select-none motion-reduce:transition-none"
-              :class="theme === 'dark' ? 'opacity-100' : 'opacity-0'"
-            />
-          </button>
+              <!-- Documentation -->
+              <li class="ml-12.5 shrink-0">
+                <NuxtLink to="/docs" class="flex h-6 w-31.25 items-center whitespace-nowrap transition-colors hover:text-[#5db872] dark:hover:text-[#5ed06f]">Documentation</NuxtLink>
+              </li>
+
+              <!-- Help & Support -->
+              <li class="ml-14.25 shrink-0">
+                <NuxtLink to="/support" class="flex h-6 w-31.25 items-center whitespace-nowrap transition-colors hover:text-[#5db872] dark:hover:text-[#5ed06f]">Help &amp; Support</NuxtLink>
+              </li>
+
+              <!-- Search field (shrinks on narrower desktops) -->
+              <li class="ml-12.25 h-8.5 w-90.25 min-w-32 shrink">
+                <form
+                  role="search"
+                  class="flex size-full items-center gap-5.5 rounded-full border border-[#d6d6d6] bg-white/70 pl-2 transition-colors focus-within:border-[#5db872] dark:border-[#3b3b3b] dark:bg-[#232323]/60 dark:focus-within:border-[#5ed06f]"
+                  @submit.prevent
+                >
+                  <NuxtLink to="/search" aria-label="Search" class="inline-flex shrink-0 text-[#9a9a9a] dark:text-[#8a8a8a]">
+                    <svg class="size-5.75" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                      <circle cx="11" cy="11" r="8" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35" />
+                    </svg>
+                  </NuxtLink>
+                  <input
+                    id="site-search"
+                    name="q"
+                    type="search"
+                    aria-label="Search"
+                    class="size-full min-w-0 bg-transparent px-3 outline-none"
+                  />
+                </form>
+              </li>
+
+              <!-- Log in + Register -->
+              <li class="ml-auto flex shrink-0 items-center">
+                <NuxtLink
+                  to="/login"
+                  class="ml-27.5 flex h-11 w-19.75 items-center justify-center font-medium whitespace-nowrap transition-colors hover:text-[#5db872] dark:hover:text-[#5ed06f]"
+                >Log in</NuxtLink>
+                <NuxtLink
+                  to="/register"
+                  class="mb-1 ml-3 flex h-10 w-22.25 items-center justify-center rounded-full bg-[#15B76C] font-['Inter'] leading-5 font-semibold text-white transition-colors hover:opacity-90 dark:bg-[#18D75D]"
+                >Register</NuxtLink>
+              </li>
+            </ul>
+
+            <!-- Theme toggle (desktop). The button defines how both images behave; they sit in a button so they are not wrapped in a link -->
+            <button
+              type="button"
+              role="switch"
+              aria-label="Toggle theme"
+              :aria-checked="theme === 'dark'"
+              class="relative ml-[73.95px] block h-5 w-9 shrink-0 cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4fae72] dark:focus-visible:outline-[#62d67c] [&>img]:pointer-events-none [&>img]:absolute [&>img]:inset-0 [&>img]:size-full [&>img]:object-contain [&>img]:select-none [&>img]:transition-opacity [&>img]:duration-500 [&>img]:ease-in-out motion-reduce:[&>img]:transition-none"
+              @click="toggleTheme"
+            >
+              <img :src="`${base}White-mode-switch.png`" alt="" aria-hidden="true" draggable="false" class="opacity-100 dark:opacity-0" />
+              <img :src="`${base}Dark-mode-switch.png`" alt="" aria-hidden="true" draggable="false" class="opacity-0 dark:opacity-100" />
+            </button>
+          </div>
+
+          <!-- Compact controls (below 1200px): theme toggle + hamburger -->
+          <div class="flex shrink-0 items-center gap-3 min-[75rem]:hidden">
+            <button
+              type="button"
+              role="switch"
+              aria-label="Toggle theme"
+              :aria-checked="theme === 'dark'"
+              class="relative block h-5 w-9 shrink-0 cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4fae72] dark:focus-visible:outline-[#62d67c] [&>img]:pointer-events-none [&>img]:absolute [&>img]:inset-0 [&>img]:size-full [&>img]:object-contain [&>img]:select-none [&>img]:transition-opacity [&>img]:duration-500 [&>img]:ease-in-out motion-reduce:[&>img]:transition-none"
+              @click="toggleTheme"
+            >
+              <img :src="`${base}White-mode-switch.png`" alt="" aria-hidden="true" draggable="false" class="opacity-100 dark:opacity-0" />
+              <img :src="`${base}Dark-mode-switch.png`" alt="" aria-hidden="true" draggable="false" class="opacity-0 dark:opacity-100" />
+            </button>
+
+            <button
+              type="button"
+              class="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-[#e4e7ec] text-[#1f1f1f] transition-colors hover:bg-[#e6e6e6] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4fae72] dark:border-[#333333] dark:text-[#f2f2f2] dark:hover:bg-[#232323] dark:focus-visible:outline-[#62d67c]"
+              :aria-expanded="menuOpen"
+              aria-label="Menu"
+              @click="toggleMobileMenu"
+            >
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path :class="menuOpen && 'hidden'" d="M4 7h16M4 12h16M4 17h16" />
+                <path :class="!menuOpen && 'hidden'" d="M6 6l12 12M18 6L6 18" />
+              </svg>
+            </button>
+          </div>
         </div>
 
-        <!-- COMPACT ONLY: theme toggle + hamburger -->
-        <div class="flex shrink-0 items-center gap-3 min-[75rem]:hidden">
-          <button
-            type="button"
-            role="switch"
-            aria-label="Toggle theme"
-            :aria-checked="theme === 'dark'"
-            class="relative block h-5 w-9 shrink-0 cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--ec-green)"
-            @click="toggleTheme"
+        <!-- Compact menu panel (below 1200px): text colour set here, links inherit it -->
+        <div
+          v-show="menuOpen"
+          class="absolute inset-x-0 top-full flex max-h-[calc(100dvh-4rem)] flex-col items-start overflow-y-auto bg-white px-4 pt-2 pb-4 text-base text-[#1a1a1a] shadow-lg dark:bg-[#151515] dark:text-[#f2f2f2] min-[75rem]:hidden"
+        >
+          <!-- Search -->
+          <form
+            role="search"
+            class="mb-2 flex h-10 w-full items-center gap-3 rounded-full border border-[#d6d6d6] bg-white/70 px-3 transition-colors focus-within:border-[#5db872] dark:border-[#3b3b3b] dark:bg-[#232323]/60 dark:focus-within:border-[#5ed06f]"
+            @submit.prevent
           >
-            <img
-              src="/White%20mode%20switch.png"
-              alt=""
-              aria-hidden="true"
-              draggable="false"
-              class="absolute inset-0 size-full object-contain transition-opacity duration-500 ease-in-out select-none motion-reduce:transition-none"
-              :class="theme === 'dark' ? 'opacity-0' : 'opacity-100'"
-            />
-            <img
-              src="/Dark%20mode%20switch.png"
-              alt=""
-              aria-hidden="true"
-              draggable="false"
-              class="absolute inset-0 size-full object-contain transition-opacity duration-500 ease-in-out select-none motion-reduce:transition-none"
-              :class="theme === 'dark' ? 'opacity-100' : 'opacity-0'"
-            />
-          </button>
-
-          <button
-            type="button"
-            class="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-(--ec-border) text-(--ec-nav-text) transition-colors hover:bg-(--ec-surface) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--ec-green)"
-            :aria-expanded="menuOpen"
-            aria-label="Menu"
-            @click="toggleMobileMenu"
-          >
-            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-              <path v-if="!menuOpen" d="M4 7h16M4 12h16M4 17h16" />
-              <path v-else d="M6 6l12 12M18 6L6 18" />
+            <svg class="size-5 shrink-0 text-[#9a9a9a] dark:text-[#8a8a8a]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="8" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35" />
             </svg>
-          </button>
-        </div>
-      </div>
+            <input
+              id="site-search-mobile"
+              name="q"
+              type="search"
+              aria-label="Search"
+              placeholder="Search"
+              class="size-full min-w-0 bg-transparent text-sm outline-none placeholder:text-[#9a9a9a]"
+            />
+          </form>
 
-      <!-- COMPACT MENU PANEL -->
-      <div
-        v-show="menuOpen"
-        class="absolute inset-x-0 top-full flex max-h-[calc(100dvh-4rem)] flex-col items-start overflow-y-auto border-t border-(--ec-border) bg-(--ec-bg) px-4 pt-2 pb-4 text-base text-(--ec-text) shadow-lg min-[75rem]:hidden"
-      >
-        <a href="/" class="w-full px-1 py-3" @click="closeMobileMenu">Home</a>
+          <NuxtLink to="/" class="w-full px-1 py-3 font-semibold text-[#439A63] transition-colors dark:text-[#52C46C]" @click="closeMobileMenu">Home</NuxtLink>
+          <NuxtLink to="/apis" class="w-full px-1 py-3 transition-colors hover:text-[#5db872] active:text-[#5db872] dark:hover:text-[#5ed06f] dark:active:text-[#5ed06f]" @click="closeMobileMenu">APIs</NuxtLink>
 
-        <a href="/apis" class="w-full px-1 py-3" @click="closeMobileMenu">APIs</a>
-        <a href="/apis/authorization" class="w-full py-3 pl-5 text-sm text-(--ec-muted)" @click="closeMobileMenu">Authorization API</a>
-        <a href="/apis/pesaflow" class="w-full py-3 pl-5 text-sm text-(--ec-muted)" @click="closeMobileMenu">Pesaflow integration</a>
-
-        <a href="/docs" class="w-full px-1 py-3" @click="closeMobileMenu">Documentation</a>
-        <a href="/support" class="w-full px-1 py-3" @click="closeMobileMenu">Help &amp; Support</a>
-        <a href="/login" class="w-full px-1 py-3" @click="closeMobileMenu">Log in</a>
-
-        <a
-          href="/register"
-          class="mt-2 inline-flex h-11 w-28 items-center justify-center rounded-full bg-(--ec-nav-reg) text-sm font-medium text-(--ec-reg-text) transition-colors hover:opacity-90"
-          @click="closeMobileMenu"
-        >Register</a>
-      </div>
-    </header>
-
-    <main class="flex-1">
-      <!-- ================= HERO ================= -->
-      <section
-        class="mx-auto mt-8 grid w-full max-w-348.25 min-h-[515.4px] grid-cols-1 items-start gap-8 px-4 sm:px-8 md:mt-12 min-[75rem]:mt-17.75 min-[75rem]:mb-37.89 min-[75rem]:grid-cols-[minmax(0,1fr)_473px] min-[75rem]:gap-x-8 min-[75rem]:gap-y-0 min-[75rem]:px-8 min-[90rem]:mx-0 min-[90rem]:mt-0 min-[90rem]:mb-37.89 min-[90rem]:ml-19 min-[90rem]:mr-10.75 min-[94.5rem]:ml-[calc((100%-94.5rem)/2+4.75rem)] min-[90rem]:box-content min-[90rem]:h-[515.4px] min-[90rem]:min-h-0 min-[90rem]:w-[1393px] min-[90rem]:max-w-[calc(100%-119px)] min-[90rem]:grid-cols-[minmax(0,1fr)_473px] min-[90rem]:gap-x-33.75 min-[90rem]:px-0 min-[90rem]:pt-17.75 min-[94.5rem]:grid-cols-[785px_473px]"
-      >
-        <!-- ================= LEFT HERO CONTENT ================= -->
-        <div
-          class="flex w-full min-w-0 flex-col min-[90rem]:w-full min-[94.5rem]:w-196.25"
-        >
-          <!-- HERO LOGO (desktop only; compact screens use the header logo) -->
-          <a
-            href="/"
-            class="hidden shrink-0 min-[75rem]:block min-[75rem]:h-24 min-[75rem]:w-74.25"
-          >
-            <Transition
-              mode="out-in"
-              enter-active-class="transition-opacity duration-250 ease-in-out motion-reduce:transition-none"
-              leave-active-class="transition-opacity duration-250 ease-in-out motion-reduce:transition-none"
-              enter-from-class="opacity-0"
-              leave-to-class="opacity-0"
-            >
-              <img
-                v-if="theme !== 'dark'"
-                key="light"
-                src="/ecitizen%20hero%20logo%20.png"
-                alt="eCitizen Developer Sandbox"
-                class="h-24 w-74.25 object-contain object-left"
-              />
-
-              <img
-                v-else
-                key="dark"
-                src="/Dark%20mode%20ecitizen.png"
-                alt="eCitizen Developer Sandbox"
-                class="h-10 w-49.5  object-contain object-left"
-              />
-            </Transition>
-          </a>
-
-          <!-- ================= HERO HEADING ================= -->
-          <h1
-            class="mt-11.25 mb-9 w-196.25 bg-[linear-gradient(100deg,var(--ec-hero-1)_0%,var(--ec-hero-2)_25%,var(--ec-hero-3)_41%,var(--ec-hero-4)_67%,var(--ec-hero-5)_100%)] bg-clip-text text-[34px] leading-[1.15] font-semibold text-transparent sm:text-5xl md:text-6xl min-[75rem]:text-6xl min-[75rem]:leading-[1.1] min-[90rem]:w-full min-[90rem]:text-[70px] min-[90rem]:whitespace-nowrap "
-          >
-            Innovation
-            <span
-              class="inline-block bg-[linear-gradient(115deg,var(--ec-meets-1)_0%,var(--ec-meets-2)_30%,var(--ec-meets-3)_55%,var(--ec-meets-4)_78%,var(--ec-meets-5)_100%)] bg-clip-text text-transparent"
-            >Meets</span><br class="hidden min-[75rem]:block" />
-            Integration.
-          </h1>
-
-          <!-- ================= HERO DESCRIPTION ================= -->
-          <div
-            class="mt-9 h-auto w-full max-w-154.5 text-sm leading-[1.45] font-light text-(--ec-text) min-[90rem]:mt-9"
-          >
-            <p class="w-full">
-              DEV eCitizen, is a controlled and isolated environment designed exclusively for developers,
-              learners, and creators. It’s a place where you can dive into coding, explore technologies, and
-              experiment with different approaches—all without the fear of affecting your live systems or
-              projects.
-            </p>
-
-            <p class="mt-4 w-full">
-              Effortless Testing: No more deploying code with crossed fingers. Test your applications, APIs,
-              and integrations rigorously in an environment that mimics real-world conditions.
-            </p>
+          <!-- API sub-links (indented). Shared look is set on the wrapper -->
+          <div class="flex w-full flex-col text-sm text-[#222222] dark:text-[#fff7f5]">
+            <NuxtLink
+              to="/apis/authorization"
+              class="w-full py-3 pl-5 transition-colors hover:bg-[#e6e6e6] hover:text-[#5db872] active:bg-[#e6e6e6] active:text-[#5db872] dark:hover:bg-[#232323] dark:hover:text-[#5ed06f] dark:active:bg-[#232323] dark:active:text-[#5ed06f]"
+              @click="closeMobileMenu"
+            >Authorization API</NuxtLink>
+            <NuxtLink
+              to="/apis/pesaflow"
+              class="w-full py-3 pl-5 transition-colors hover:bg-[#e6e6e6] hover:text-[#5db872] active:bg-[#e6e6e6] active:text-[#5db872] dark:hover:bg-[#232323] dark:hover:text-[#5ed06f] dark:active:bg-[#232323] dark:active:text-[#5ed06f]"
+              @click="closeMobileMenu"
+            >Pesaflow integration</NuxtLink>
           </div>
-        </div>
 
-        <!-- ================= HERO ARTWORK ================= -->
-        <div
-          class="relative flex w-full min-w-0 items-center justify-center justify-self-center min-[75rem]:mt-2.5 min-[75rem]:h-126.36 min-[75rem]:w-118.25 min-[75rem]:justify-self-end min-[90rem]:w-[473px]"
+          <NuxtLink to="/docs" class="w-full px-1 py-3 transition-colors hover:text-[#5db872] active:text-[#5db872] dark:hover:text-[#5ed06f] dark:active:text-[#5ed06f]" @click="closeMobileMenu">Documentation</NuxtLink>
+          <NuxtLink to="/support" class="w-full px-1 py-3 transition-colors hover:text-[#5db872] active:text-[#5db872] dark:hover:text-[#5ed06f] dark:active:text-[#5ed06f]" @click="closeMobileMenu">Help &amp; Support</NuxtLink>
+          <NuxtLink to="/login" class="w-full px-1 py-3 transition-colors hover:text-[#5db872] active:text-[#5db872] dark:hover:text-[#5ed06f] dark:active:text-[#5ed06f]" @click="closeMobileMenu">Log in</NuxtLink>
+
+          <NuxtLink
+            to="/register"
+            class="mt-2 inline-flex h-11 w-28 items-center justify-center rounded-full bg-[#15B76C] text-sm font-medium text-white transition-colors hover:opacity-90 dark:bg-[#18D75D]"
+            @click="closeMobileMenu"
+          >Register</NuxtLink>
+        </div>
+      </header>
+
+      <main class="flex-1">
+
+        <!-- ================= HERO: intro text on the left, artwork on the right. ================= -->
+        <section
+          class="mx-auto mt-8 grid w-full max-w-348.25 grid-cols-1 items-start gap-8 px-4 sm:px-8 md:mt-12 min-[75rem]:mt-17.75 min-[75rem]:mb-37.89 min-[75rem]:min-h-[515.4px] min-[75rem]:grid-cols-[minmax(0,1fr)_473px] min-[75rem]:gap-x-8 min-[75rem]:gap-y-0 min-[75rem]:px-8 min-[90rem]:mx-0 min-[90rem]:mt-0 min-[90rem]:ml-19 min-[90rem]:mr-10.75 min-[90rem]:box-content min-[90rem]:h-[515.4px] min-[90rem]:min-h-0 min-[90rem]:w-348.25 min-[90rem]:max-w-[calc(100%-119px)] min-[90rem]:gap-x-33.75 min-[90rem]:px-0 min-[90rem]:pt-17.75 min-[94.5rem]:ml-[calc((100%-94.5rem)/2+4.75rem)] min-[94.5rem]:grid-cols-[785px_473px]"
         >
-          <!-- GLOW: DARK MODE ONLY -->
-          <Transition
-            enter-active-class="transition-opacity duration-500 ease-in-out motion-reduce:transition-none"
-            leave-active-class="transition-opacity duration-500 ease-in-out motion-reduce:transition-none"
-            enter-from-class="opacity-0"
-            leave-to-class="opacity-0"
+          <!-- Hero left column: logo, gradient heading, description -->
+          <div class="flex min-w-0 flex-col">
+            <!-- Hero logo (desktop only). The link has the size, images follow it -->
+            <NuxtLink
+              to="/"
+              class="hidden shrink-0 min-[75rem]:block min-[75rem]:h-24 min-[75rem]:w-74.25 [&>img]:object-contain [&>img]:object-left"
+            >
+              <img :src="`${base}ecitizen-hero-logo.png`" alt="eCitizen Developer Sandbox" class="block size-full dark:hidden" />
+              <img :src="`${base}Dark-mode-ecitizen.png`" alt="eCitizen Developer Sandbox" class="hidden h-10 w-49.5 dark:block" />
+            </NuxtLink>
+
+           
+<!-- Gradient heading -->
+<h1
+  class="mt-2 mb-2 bg-[linear-gradient(100deg,rgba(4,85,33,0.7)_0%,#1e9034_25%,#7dcc70_41%,#a9bf36_67%,#db6900_100%)] bg-clip-text text-[34px] leading-[1.3] font-semibold text-transparent sm:text-5xl sm:leading-[1.2] md:text-6xl md:leading-[1.15] min-[75rem]:mt-11.25 min-[75rem]:mb-9 min-[75rem]:h-40 min-[90rem]:text-[70px] min-[90rem]:whitespace-nowrap"
+>
+  Innovation
+  <span class="inline-block bg-[linear-gradient(115deg,#74b86a_0%,#98ca70_30%,#aebf46_55%,#b8a63e_78%,#c4852f_100%)] bg-clip-text text-transparent">Meets</span><br class="hidden min-[75rem]:block" />
+  Integration.
+</h1>
+
+
+            <!-- Description: font + colour set once, both paragraphs inherit -->
+            <div class="mt-4 max-w-154.5 text-sm leading-[1.45] font-light text-[#1a1a1a] dark:text-[#f2f2f2] min-[75rem]:mt-10 min-[90rem]:mt-9 [&>p+p]:mt-4">
+              <p>
+                DEV eCitizen, is a controlled and isolated environment designed exclusively for developers,
+                learners, and creators. It’s a place where you can dive into coding, explore technologies, and
+                experiment with different approaches—all without the fear of affecting your live systems or
+                projects.
+              </p>
+              <p>
+                Effortless Testing: No more deploying code with crossed fingers. Test your applications, APIs,
+                and integrations rigorously in an environment that mimics real-world conditions.
+              </p>
+            </div>
+          </div>
+
+          <!-- Hero right column: artwork with a dark-mode glow behind it -->
+          <div
+            class="relative flex w-full max-w-md min-w-0 items-center justify-center justify-self-center min-[75rem]:mt-2.5 min-[75rem]:h-126.36 min-[75rem]:w-118.25 min-[75rem]:max-w-none min-[75rem]:justify-self-end"
           >
+            <!-- Glow (dark mode only) -->
             <span
-              v-if="theme === 'dark'"
               aria-hidden="true"
-              class="pointer-events-none absolute top-1/2 left-1/2 z-0 size-[170%] -translate-1/2 rounded-full bg-[radial-gradient(closest-side,var(--ec-glow)_0%,rgba(34,120,70,0.05)_55%,transparent_100%)]"
+              class="pointer-events-none absolute top-1/2 left-1/2 z-0 size-[170%] -translate-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(34,120,70,0.14)_0%,rgba(34,120,70,0.05)_55%,transparent_100%)] opacity-0 transition-opacity duration-500 ease-in-out motion-reduce:transition-none dark:opacity-100"
             ></span>
-          </Transition>
 
-          <!-- MASK IMAGE LINK -->
-          <a
-            href="/docs"
-            class="relative z-10 block h-full w-full min-w-0"
-          >
-            <img
-              src="/Art%20mask%20logo%20.png"
-              alt="eCitizen hero artwork"
-              class="block h-auto w-full max-w-full object-contain object-center min-[75rem]:h-full min-[75rem]:w-full"
-            />
-          </a>
-        </div>
-      </section>
+            <NuxtLink to="/docs" class="relative z-10 block size-full min-w-0">
+              <img :src="`${base}Art-mask-logo.png`" alt="eCitizen hero artwork" class="block h-auto w-full object-contain min-[75rem]:h-full" />
+            </NuxtLink>
+          </div>
+        </section>
 
-      <!-- ================= AUTHORIZATION API ================= -->
-      <section
-        class="mx-26.25 mt-16 flex w-full max-w-337.5 flex-col items-center px-4 text-center sm:px-8 md:mt-24 min-[75rem]:mt-50.75 min-[75rem]:px-0"
-      >
-        <p
-          class="ml-93.25 mr-93.25 w-191.5 h-6 mt-37.89 text-center font-['Inter'] text-base leading-6 font-semibold text-[#18D75D] min-[75rem]:mt-[37.89px]"
+        <!-- ================= AUTHORIZATION API: heading, phone + laptop mock-ups, three sign-in option cards ================= -->
+        <section
+          class="mx-auto mt-16 flex w-full max-w-337.5 flex-col items-center px-4 text-center sm:px-8 md:mt-24 min-[75rem]:mx-26.25 min-[75rem]:mt-50.75 min-[75rem]:px-0 [&>h2]:mt-3 [&>h2]:leading-[1.2] [&>h2]:font-semibold min-[75rem]:[&>h2]:h-11 [&>p]:font-['Inter'] [&>p]:leading-6 [&>p]:font-semibold [&>p]:text-[#18D75D] min-[75rem]:[&>p]:mt-[37.89px]"
         >
-          API
-        </p>
+          <p>API</p>
 
-        <h2 class="whitespace-nowrap mt-3 w-191.5 h-11 ml-93.25 mr-93.25 text-center text-[24px] leading-[1.2] font-semibold sm:text-3xl md:text-[48px]">
-  eCitizen Authorization API v2.0.0
-</h2>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl min-[75rem]:text-[48px] min-[75rem]:whitespace-nowrap">
+            eCitizen Authorization API v2.0.0
+          </h2>
 
-        <!-- NAVIGATION PILLS (theme aware) -->
-        <div
-          class="w-51.25 h-7.5 ml-74.5 mr-65.75 mt-16.75 mb-7.75  pt-1 pb-1 flex items-center gap-2 rounded-full bg-(--ec-chip-on-bg) py-1 pr-1 pl-3 text-xs leading-4.5 font-medium whitespace-nowrap text-(--ec-chip-on-text) "
-        >
-          <a href="/try" class="shrink-0">Try it out below</a>
-          <a href="/docs" class="shrink-0 rounded-full bg-(--ec-chip-bg) px-1.5 py-0.5">Click through</a>
-        </div>
-
-        <!-- API SECTION IMAGES: phone (226 x 464) + laptop (764.97 x 467), gap 32, each its own link -->
-        <div class="mx-auto mt-7.75 flex w-full max-w-[1022.97px] items-center gap-8">
-          <!-- PHONE (226 x 464) -->
-          <a
-            href="/apis/authorization/phone"
-            class="block  aspect-226/464 w-[22.09%] shrink-0"
-          >
-            <img
-              src="/Ecitizen phone.png"
-              alt="eCitizen app on a phone"
-              width="226"
-              height="464"
-              class="block mb-30.25 size-full origin-center -translate-x-[27.4%] translate-y-[11%] scale-[2.11] object-contain object-center"
-            />
-          </a>
-
-          <!-- LAPTOP (764.97 x 467) -->
-          <a
-            href="/apis/authorization/laptop"
-            class="block aspect-[764.97/467] min-w-0 flex-1"
-          >
-            <img
-              src="/E-citizen laptop.png"
-              alt="One Login screen on a laptop"
-              width="765"
-              height="467"
-              class="block mb-30.25 size-full object-contain object-bottom"
-            />
-          </a>
-        </div>
-
-        <!-- AUTHORIZATION OPTIONS (row 1302 x 213, cards 412.67 x 181, separating line margin 2) -->
-        <div
-          class="mx-auto mt-30.25  mb-13.75  ml-26.25 mr-26.25 px-4 pt-4 pb-4  grid w-full max-w-xl grid-cols-1 gap-4 text-left min-[56.25rem]:max-w-none min-[56.25rem]:grid-cols-3 m min-[75rem]:h-53.25 min-[75rem]:max-w-325.5 min-[75rem]:gap-2"
-        >
-          <!-- PASSWORD -->
+          <!-- Quick links pill -->
           <div
-            class="w-full border-l-2 py-4 pr-2 pl-5 min-[75rem]:h-45.25 min-[75rem]:max-w-[412.67px] min-[75rem]:pl-6"
-            :class="active.auth === 0 ? 'border-(--ec-green)' : 'border-(--ec-tab-bar)'"
+            class="mt-8 flex h-7.5 w-fit max-w-full items-center gap-2 rounded-full bg-[#ECFDF3] py-1 pr-1 pl-3 font-['Inter'] text-xs leading-4.5 font-medium whitespace-nowrap text-[#067647] min-[75rem]:mt-16.75 min-[75rem]:mb-7.75 min-[75rem]:ml-74.5 min-[75rem]:mr-65.75 min-[75rem]:w-51.25"
           >
-           <a
-  href="/apis/authorization/password"
-  class="mb-4 inline-flex h-11.25 items-center gap-2.5 rounded-full px-4 font-['Lexend'] text-base font-semibold leading-6 whitespace-nowrap transition-colors min-[75rem]:mb-8 min-[75rem]:w-61.75"
-  :class="active.auth === 0
-    ? 'bg-(--ec-pill-on-bg-auth) text-(--ec-pill-on-text)'
-    : 'bg-(--ec-pill-bg) text-(--ec-pill-text) hover:bg-(--ec-surface)'"
-  @click.prevent="setActive('auth', 0)"
->
-  <img
-    src="/Sign in with password .png"
-    alt=""
-    aria-hidden="true"
-    width="20"
-    height="20"
-    class="size-5 shrink-0 object-contain"
-  />
-  Sign in with Password
-</a>
-
-            <p class="w-full text-sm leading-snug text-(--ec-muted) min-[75rem]:min-h-18">
-              An all-in-one customer service platform that helps<br class="hidden min-[75rem]:block" /> you balance everything your customers need to be<br class="hidden min-[75rem]:block" /> happy.
-            </p>
+            <NuxtLink to="/try" class="shrink-0">Try it out below</NuxtLink>
+            <NuxtLink to="/docs" class="shrink-0 rounded-full bg-white px-1.5 py-0.5">Click through</NuxtLink>
           </div>
 
-          <!-- DIGITAL ID -->
-          <div
-            class="w-full border-l-2 py-4 pr-2 pl-5 min-[75rem]:h-45.25 min-[75rem]:max-w-[412.67px] min-[75rem]:pl-6"
-            :class="active.auth === 1 ? 'border-(--ec-green)' : 'border-(--ec-tab-bar)'"
-          >
-            <a
-              href="/apis/authorization/digital-id"
-              class="mb-4 inline-flex h-11.25 items-center gap-2.5 rounded-full px-4 text-sm font-semibold whitespace-nowrap transition-colors min-[75rem]:mb-8 min-[75rem]:w-61.75"
-              :class="active.auth === 1
-                ? 'bg-(--ec-pill-on-bg-auth) text-(--ec-pill-on-text)'
-                : 'bg-(--ec-pill-bg) text-(--ec-pill-text) hover:bg-(--ec-surface)'"
-              @click.prevent="setActive('auth', 1)"
+          <!-- Mock-ups row: phone (fixed) + laptop (fills the rest). Parent makes every image fill its link -->
+          <div class="mx-auto flex w-full max-w-[1022.97px] flex-col items-center gap-6 min-[75rem]:flex-row min-[75rem]:gap-8 [&_img]:block [&_img]:size-full [&_img]:object-contain">
+            <!-- Phone -->
+            <NuxtLink
+              to="/apis/authorization/phone"
+              class="block aspect-226/464 w-40 shrink-0 min-[75rem]:aspect-auto min-[75rem]:h-116 min-[75rem]:w-56.5 min-[75rem]:ml-47.97 min-[75rem]:mr-16.16"
             >
               <img
-                src="/sign in with digital ID.png"
-                alt=""
-                aria-hidden="true"
-                width="20"
-                height="20"
-                class="size-5 shrink-0 object-contain"
+                :src="`${base}Ecitizen-phone.png`"
+                alt="eCitizen app on a phone"
+                width="226"
+                height="464"
+                class="min-[75rem]:mr-8 min-[75rem]:origin-center min-[75rem]:translate-x-[-27.4%] min-[75rem]:translate-y-[11%] min-[75rem]:scale-[2.11]"
               />
-              Sign in with Digital ID
-            </a>
+            </NuxtLink>
 
-            <p class="w-full text-sm leading-snug text-(--ec-muted) min-[75rem]:min-h-18">
-              Whether you have a team of 2 or 200, our shared <br class="hidden min-[75rem]:block" /> team inboxes keep everyone on the same page <br class="hidden min-[75rem]:block" />and in the loop.
-            </p>
-          </div>
-
-          <!-- MCDAs -->
-          <div
-            class="w-full border-l-2 py-4 pr-2 pl-5 min-[75rem]:h-45.25 min-[75rem]:max-w-[412.67px] min-[75rem]:pl-6"
-            :class="active.auth === 2 ? 'border-(--ec-green)' : 'border-(--ec-tab-bar)'"
-          >
-        <a
-  href="/apis/authorization/mcdas"
-  class="mb-4 inline-flex h-11.25 w-31.75 items-center gap-2.5 rounded-full px-4 font-['Lexend'] text-base font-semibold leading-6 whitespace-nowrap transition-colors"
-  :class="active.auth === 2
-    ? 'bg-(--ec-pill-on-bg-auth) text-(--ec-pill-on-text)'
-    : 'bg-(--ec-pill-bg) text-(--ec-pill-text) hover:bg-(--ec-surface)'"
-  @click.prevent="setActive('auth', 2)"
->
-  <img
-    src="/MCDA.png"
-    alt=""
-    aria-hidden="true"
-    width="20"
-    height="20"
-    class="size-5 shrink-0 object-contain"
-  />
-  MCDAs
-</a>
-
-            <p class="w-full text-sm leading-snug text-(--ec-muted) min-[75rem]:min-h-18">
-              An all-in-one customer service platform that helps<br class="hidden min-[75rem]:block" /> you balance everything your customers need to be<br class="hidden min-[75rem]:block" /> happy.
-            </p>
-          </div>
-        </div>
-
-        <!-- LEARN MORE -->
-        <a
-          href="/apis/authorization"
-          class="w-32 h-12  ml-173  mr-173 inline-flex  items-center justify-center rounded-full bg-(--ec-btn-bg) text-sm font-semibold text-(--ec-btn-text) transition-colors hover:bg-(--ec-btn-bg-hover)"
-        >
-          Learn More
-        </a>
-      </section>
-
-      <!-- ================= PESAFLOW INTEGRATION (mirrors AUTHORIZATION API) ================= -->
-      <section
-        class="mx-26.25 mt-47.75 flex w-full max-w-337.5 flex-col items-center px-4 text-center sm:px-8   min-[75rem]:px-0"
-      >
-        <p
-          class="ml-93.25 mr-93.25 w-191.5 h-6 mt-37.89 text-center font-['Inter'] text-base leading-6 font-semibold text-[#18D75D] min-[75rem]:mt-[37.89px]"
-        >
-          API
-        </p>
-
-        <h2 class="mt-3 w-191.5 h-11 ml-93.25 mr-93.25  text-center text-2xl leading-[1.2] font-semibold sm:text-3xl md:text-[40px]">
-          Pesaflow integration
-        </h2>
-
-
-        <!-- PESAFLOW SECTION IMAGES: phone (226 x 464) + laptop (764.97 x 467), gap 32, each its own link -->
-        <div class="mx-auto mt-7.75 flex w-full max-w-[1022.97px] items-center gap-8">
-          <!-- PHONE (226 x 464) -->
-          <a
-            href="/apis/pesaflow/phone"
-            class="block  aspect-226/464 w-[22.09%] shrink-0"
-          >
-            <img
-              src="/Pesa Flow phone.png"
-              alt="Pesaflow payment method screen on a phone"
-              width="226"
-              height="464"
-              class="block  size-full origin-center -translate-x-[27.4%] translate-y-[11%] scale-[2.11] object-contain object-center"
-            />
-          </a>
-
-          <!-- LAPTOP (764.97 x 467) -->
-          <a
-            href="/apis/pesaflow/laptop"
-            class="block aspect-[764.97/467] min-w-0 flex-1"
-          >
-            <img
-              src="/Pesa flow laptop.png"
-              alt="Pesaflow payment method screen on a laptop"
-              width="765"
-              height="467"
-              class="block size-full object-contain object-bottom"
-            />
-          </a>
-        </div>
-
-        <!-- PESAFLOW OPTIONS (row 1302 x 213, cards 412.67 x 181, separating line margin 2) -->
-        <div
-          class="mx-auto mt-30.25  mb-15  ml-26.25 mr-26.25 px-4 pt-4 pb-4  grid w-full max-w-xl grid-cols-1 gap-4 text-left min-[56.25rem]:max-w-none min-[56.25rem]:grid-cols-3 min-[75rem]:h-53.25 min-[75rem]:max-w-325.5 min-[75rem]:gap-2"
-        >
-          <!-- MAKE PAYMENT -->
-          <div
-            class="w-full border-l-2 py-4 pr-2 pl-5 min-[75rem]:h-45.25 min-[75rem]:max-w-[412.67px] min-[75rem]:pl-6"
-            :class="active.pesa === 0 ? 'border-(--ec-green)' : 'border-(--ec-tab-bar)'"
-          >
-          <a
-  href="/apis/pesaflow/make-payment"
-  class="mb-4 inline-flex h-11.25 items-center gap-2.5 rounded-full px-4 font-['Lexend'] text-base font-semibold leading-6 whitespace-nowrap transition-colors min-[75rem]:mb-8 min-[75rem]:w-47.75"
-  :class="active.pesa === 0
-    ? 'bg-(--ec-pill-on-bg-auth) text-(--ec-pill-on-text)'
-    : 'bg-(--ec-pill-bg) text-(--ec-pill-text) hover:bg-(--ec-surface)'"
-  @click.prevent="setActive('pesa', 0)"
->
-  <img
-    src="/MCDA.png"
-    alt=""
-    aria-hidden="true"
-    width="20"
-    height="20"
-    class="size-5 shrink-0 object-contain"
-  />
-  Make payment
-</a>
-            <p class="w-full text-sm leading-snug text-(--ec-muted) min-[75rem]:min-h-18">
-              An all-in-one customer service platform that helps<br class="hidden min-[75rem]:block" /> you balance everything your customers need to be<br class="hidden min-[75rem]:block" /> happy.
-            </p>
-          </div>
-
-          <!-- CHECKOUT -->
-          <div
-            class="w-full border-l-2 py-4 pr-2 pl-5 min-[75rem]:h-45.25 min-[75rem]:max-w-[412.67px] min-[75rem]:pl-6"
-            :class="active.pesa === 1 ? 'border-(--ec-green)' : 'border-(--ec-tab-bar)'"
-          >
-            <a
-              href="/apis/pesaflow/checkout"
-              class="mb-4 inline-flex h-11.25 items-center gap-2.5 rounded-full px-4 text-sm font-semibold whitespace-nowrap transition-colors min-[75rem]:mb-8 min-[75rem]:w-35.25"
-              :class="active.pesa === 1
-                ? 'bg-(--ec-pill-on-bg-auth) text-(--ec-pill-on-text)'
-                : 'bg-(--ec-pill-bg) text-(--ec-pill-text) hover:bg-(--ec-surface)'"
-              @click.prevent="setActive('pesa', 1)"
-            >
+            <!-- Laptop -->
+            <NuxtLink to="/apis/authorization/laptop" class="block aspect-[764.97/467] w-full min-w-0 min-[75rem]:flex-1">
               <img
-                src="/sign in with digital ID.png"
-                alt=""
-                aria-hidden="true"
-                width="20"
-                height="20"
-                class="size-5 shrink-0 object-contain"
+                :src="`${base}E-citizen-laptop.png`"
+                alt="One Login screen on a laptop"
+                width="765"
+                height="467"
+                class="object-bottom min-[75rem]:ml-8"
               />
-              Checkout
-            </a>
-
-            <p class="w-full text-sm leading-snug text-(--ec-muted) min-[75rem]:min-h-18">
-              Whether you have a team of 2 or 200, our shared <br class="hidden min-[75rem]:block" /> team inboxes keep everyone on the same page <br class="hidden min-[75rem]:block" />and in the loop.
-            </p>
+            </NuxtLink>
           </div>
 
-          <!-- CONFIGURE CHANNELS -->
+          <!-- Option cards. THIS PARENT defines the card size, border, pill shape, icon size and text style; the cards below only add what is different -->
           <div
-            class="w-full border-l-2 py-4 pr-2 pl-5 min-[75rem]:h-45.25 min-[75rem]:max-w-[412.67px] min-[75rem]:pl-6"
-            :class="active.pesa === 2 ? 'border-(--ec-green)' : 'border-(--ec-tab-bar)'"
+            class="mx-auto mt-10 mb-10 grid w-full max-w-xl grid-cols-1 gap-4 text-left font-['Inter'] text-base leading-6 text-[#222222] dark:text-[#fff7f5] min-[56.25rem]:max-w-none min-[56.25rem]:grid-cols-3 min-[75rem]:mt-30.25 min-[75rem]:mb-13.75 min-[75rem]:h-53.25 min-[75rem]:max-w-325.5 min-[75rem]:gap-2 min-[75rem]:p-4
+                   *:w-full *:border-l-4 *:py-4 *:pr-2 *:pl-5 min-[75rem]:*:h-45.25 min-[75rem]:*:max-w-[412.67px] min-[75rem]:*:pl-6
+                   [&>div>a]:mb-4 [&>div>a]:inline-flex [&>div>a]:h-11.25 [&>div>a]:items-center [&>div>a]:gap-2.5 [&>div>a]:rounded-full [&>div>a]:font-['Lexend'] [&>div>a]:font-semibold [&>div>a]:whitespace-nowrap [&>div>a]:transition-colors min-[75rem]:[&>div>a]:mb-8
+                   [&>div>p]:w-full min-[75rem]:[&>div>p]:min-h-18 min-[75rem]:[&>div>p]:whitespace-nowrap
+                   [&_img]:shrink-0 [&_img]:object-contain"
           >
-       <a
-  href="/apis/pesaflow/configure-channels"
-  class="mb-4 inline-flex h-11.25 items-center gap-2.5 rounded-full px-4 font-['Lexend'] text-base font-semibold leading-6 whitespace-nowrap transition-colors min-[75rem]:mb-8 min-[75rem]:w-56.5"
-  :class="active.pesa === 2
-    ? 'bg-(--ec-pill-on-bg-auth) text-(--ec-pill-on-text)'
-    : 'bg-(--ec-pill-bg) text-(--ec-pill-text) hover:bg-(--ec-surface)'"
-  @click.prevent="setActive('pesa', 2)"
->
-  <img
-    src="/MCDA.png"
-    alt=""
-    aria-hidden="true"
-    width="20"
-    height="20"
-    class="size-5 shrink-0 object-contain"
-  />
-  Configure channels
-</a>
+            <!-- Card 1: Sign in with Password -->
+            <div :class="cardBorder(active.auth === 0)">
+              <NuxtLink
+                to="/apis/authorization/password"
+                class="px-4 min-[75rem]:w-61.75 [&>img]:size-7"
+                :class="pillStyle(active.auth === 0)"
+                @click.capture.prevent="setActive('auth', 0)"
+              >
+                <img :src="`${base}Icon-a-light.png`" alt="" aria-hidden="true" class="dark:hidden" />
+                <img :src="`${base}Icon-a-dark.png`" alt="" aria-hidden="true" class="hidden dark:block" />
+                Sign in with Password
+              </NuxtLink>
+              <p>An all-in-one customer service platform that helps<br class="hidden min-[75rem]:block" /> you balance everything your customers need to be<br class="hidden min-[75rem]:block" /> happy.</p>
+            </div>
 
-            <p class="w-full text-sm leading-snug text-(--ec-muted) min-[75rem]:min-h-18">
-              An all-in-one customer service platform that helps<br class="hidden min-[75rem]:block" /> you balance everything your customers need to be<br class="hidden min-[75rem]:block" /> happy.
-            </p>
+            <!-- Card 2: Sign in with Digital ID (always green, opens the news page) -->
+            <div :class="cardBorder(active.auth === 1)">
+              <NuxtLink
+                to="/news/sign-in-with-digital-id"
+                class="py-1.5 pr-5 pl-1.5 min-[75rem]:w-62.5 [&>img]:size-7.25"
+                :class="pillStyleGreen(true)"
+              >
+                <img :src="`${base}Icon-b-light.png`" alt="" aria-hidden="true" class="dark:hidden" />
+                <img :src="`${base}Icon-b-dark.png`" alt="" aria-hidden="true" class="hidden dark:block" />
+                Sign in with Digital ID
+              </NuxtLink>
+              <p>Whether you have a team of 2 or 200, our shared <br class="hidden min-[75rem]:block" /> team inboxes keep everyone on the same page <br class="hidden min-[75rem]:block" />and in the loop.</p>
+            </div>
+
+            <!-- Card 3: MCDAs -->
+            <div :class="cardBorder(active.auth === 2)">
+              <NuxtLink
+                to="/apis/authorization/mcdas"
+                class="px-4 min-[75rem]:w-31.75 [&>img]:size-7"
+                :class="pillStyle(active.auth === 2)"
+                @click.capture.prevent="setActive('auth', 2)"
+              >
+                <img :src="`${base}Icon c light.png`" alt="" aria-hidden="true" class="dark:hidden" />
+                <img :src="`${base}Icon-c-dark.png`" alt="" aria-hidden="true" class="hidden dark:block" />
+                MCDAs
+              </NuxtLink>
+              <p>An all-in-one customer service platform that helps<br class="hidden min-[75rem]:block" /> you balance everything your customers need to be<br class="hidden min-[75rem]:block" /> happy.</p>
+            </div>
           </div>
-        </div>
 
-        <!-- LEARN MORE -->
-        <a
-          href="/apis/pesaflow"
-          class="w-32 h-12   mb-32.5  ml-179 mr-167 inline-flex  items-center justify-center rounded-full bg-(--ec-btn-bg) text-sm font-semibold text-(--ec-btn-text) transition-colors hover:bg-(--ec-btn-bg-hover)"
+          <!-- Learn more button (centred by the section, no margins needed) -->
+          <NuxtLink
+            to="/apis/authorization"
+            class="inline-flex h-12 w-32 items-center justify-center rounded-full bg-[#14b04c] font-['Inter'] text-base leading-6 font-semibold text-white transition-colors hover:bg-[#109a3e]"
+          >Learn More</NuxtLink>
+        </section>
+
+        <!-- ================= PESAFLOW INTEGRATION: same layout as above with Pesaflow content ================= -->
+        <section
+          class="mx-auto mt-16 flex w-full max-w-337.5 flex-col items-center px-4 text-center sm:px-8 min-[75rem]:mx-26.25 min-[75rem]:mt-47.75 min-[75rem]:px-0 [&>h2]:mt-3 [&>h2]:leading-[1.2] [&>h2]:font-semibold min-[75rem]:[&>h2]:h-11 [&>p]:font-['Inter'] [&>p]:leading-6 [&>p]:font-semibold [&>p]:text-[#18D75D] min-[75rem]:[&>p]:mt-[37.89px]"
         >
-          Learn More
-        </a>
-      </section>
+          <p>API</p>
 
-      <!-- ================= INSTANT ENVIRONMENTS BANNER ================= -->
-      <section class="relative mx-auto mb-12  h-72 w-full max-w-378 sm:h-96 md:h-130 min-[75rem]:mb-24.7 min-[75rem]:h-198.25">
-        <a href="/environments" class="relative block size-full">
-          <img src="/Rectangle%209.png" alt="Developer working at a desk" class="size-full object-cover grayscale" />
-          <div class="w-378 h-198.25 absolute inset-0 flex flex-col items-center justify-center text-center text-white">
-            <h2
-              class="whitespace-nowrap max-w-214.75 h-70.5  mb-4.75 text-3xl leading-[1.2] font-semibold sm:text-5xl md:text-7xl min-[86.25rem]:text-[96px]"
-            >Instant developer <br class="hidden min-[75rem]:block" />  environments</h2>
-          <span
-  class="mb-35.25 ml-169.5 mr-169.75 h-15 w-38.75 px-7 py-4 font-['Inter'] text-lg leading-7 font-semibold transition-colors hover:text-[#18D75D]"
->
-  Learn More
-</span>
+          <h2 class="mb-20 text-2xl sm:text-3xl md:text-[40px]">Pesaflow integration</h2>
+
+          <!-- Mock-ups row: phone (22% wide) + laptop (fills the rest) -->
+          <div class="mx-auto flex w-full max-w-[1022.97px] flex-col items-center gap-6 min-[75rem]:flex-row min-[75rem]:gap-8 [&_img]:block [&_img]:size-full [&_img]:object-contain">
+            <!-- Phone -->
+            <NuxtLink to="/apis/pesaflow/phone" class="block aspect-226/464 w-40 shrink-0 min-[75rem]:w-[22.09%]">
+              <img
+                :src="`${base}Pesa Flow-phone.png`"
+                alt="Pesaflow payment method screen on a phone"
+                width="226"
+                height="464"
+                class="min-[75rem]:mr-8 min-[75rem]:origin-center min-[75rem]:translate-x-[-27.4%] min-[75rem]:translate-y-[11%] min-[75rem]:scale-[2.11]"
+              />
+            </NuxtLink>
+
+            <!-- Laptop -->
+            <NuxtLink to="/apis/pesaflow/laptop" class="block aspect-[764.97/467] w-full min-w-0 min-[75rem]:flex-1">
+              <img
+                :src="`${base}Pesaflow-laptop.png`"
+                alt="Pesaflow payment method screen on a laptop"
+                width="765"
+                height="467"
+                class="object-bottom min-[75rem]:ml-8"
+              />
+            </NuxtLink>
           </div>
-        </a>
-      </section>
 
-       <!-- ================= LATEST NEWS ================= -->
-      <section class="mx-auto mb-12 ml-19.75 w-full max-w-338.25 px-4 text-center sm:px-8 min-[75rem]:mb-6.75 min-[75rem]:px-0">
-        <h2
-          class="mx-auto mb-5 max-w-3xl h-11 font-['Inter'] text-2xl leading-11 font-semibold text-(--ec-muted) sm:text-3xl md:text-[36px] min-[75rem]:mt-24"
-        >Latest News</h2>
-       <p class="mx-auto mt-2 mb-10 max-w-3xl font-['Inter'] text-base leading-7.5 text-(--ec-muted) md:text-lg lg:text-xl md:mb-16">
-  Interviews, tips, guides, industry best practices, and news.
-</p> 
- 
-        <div class="mx-auto mt-16 mb-16 grid w-338.25 h-97   grid-cols-1 gap-8 text-left sm:grid-cols-2 lg:grid-cols-3 ">
-          <article>
-            <a href="/news/sign-in-with-digital-id" class="block overflow-hidden rounded-lg">
-              <img
-                src="/Sign%20in%20with%20digital%20.png"
-                alt="Sign in with Digital ID"
-                class="h-60 w-107.41 mb-8  w-full object-cover transition-transform duration-300 hover:scale-105 sm:h-60"
-              />
-            </a>
-          <p class="w-107.41 h-5 mt-5 mb-2 font-['Inter'] text-sm font-semibold leading-5 text-[#14B04C]">
-  16 Jan 2022
-</p>
-            <a
-              href="/news/sign-in-with-digital-id"
-              class="w-107.4 h-8 mb-2  flex items-start justify-between gap-2 text-lg font-['Inter'] font-semibold  lg:text-xl leading-8 text-(--ec-muted) hover:text-(--ec-green-text)"
-            >
-              Sign in with Digital ID
-              <svg class=" w-6 h-7 size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9" /></svg>
-            </a>
-            <p class="w-107.4 h-12 text-(--ec-muted) font-['Inter'] text-sm leading-6">
-              Mental models are simple expressions of complex<br class="hidden min-[75rem]:block" /> processes or relationships.
-            </p>
-          </article>
+          <!-- Option cards (same parent-driven sizing as the Authorization cards) -->
+          <div
+            class="mx-auto mt-10 mb-10 grid w-full max-w-xl grid-cols-1 gap-4 text-left font-['Inter'] text-base leading-6 text-[#222222] dark:text-[#fff7f5] min-[56.25rem]:max-w-none min-[56.25rem]:grid-cols-3 min-[75rem]:mt-30.25 min-[75rem]:mb-15 min-[75rem]:h-53.25 min-[75rem]:max-w-325.5 min-[75rem]:gap-2 min-[75rem]:p-4
+                   *:w-full *:border-l-4 *:py-4 *:pr-2 *:pl-5 min-[75rem]:*:h-45.25 min-[75rem]:*:max-w-[412.67px] min-[75rem]:*:pl-6
+                   [&>div>a]:mb-4 [&>div>a]:inline-flex [&>div>a]:h-11.25 [&>div>a]:items-center [&>div>a]:gap-2.5 [&>div>a]:rounded-full [&>div>a]:font-['Lexend'] [&>div>a]:font-semibold [&>div>a]:whitespace-nowrap [&>div>a]:transition-colors min-[75rem]:[&>div>a]:mb-8
+                   [&>div>p]:w-full min-[75rem]:[&>div>p]:min-h-18 min-[75rem]:[&>div>p]:whitespace-nowrap
+                   [&_img]:shrink-0 [&_img]:object-contain"
+          >
+            <!-- Card 1: Make payment -->
+            <div :class="cardBorder(active.pesa === 0)">
+              <NuxtLink
+                to="/apis/pesaflow/make-payment"
+                class="px-4 min-[75rem]:w-47.75 [&>img]:size-7"
+                :class="pillStyle(active.pesa === 0)"
+                @click.capture.prevent="setActive('pesa', 0)"
+              >
+                <img :src="`${base}Icon-a-light.png`" alt="" aria-hidden="true" class="dark:hidden" />
+                <img :src="`${base}Icon-a-dark.png`" alt="" aria-hidden="true" class="hidden dark:block" />
+                Make payment
+              </NuxtLink>
+              <p>An all-in-one customer service platform that helps<br class="hidden min-[75rem]:block" /> you balance everything your customers need to be<br class="hidden min-[75rem]:block" /> happy.</p>
+            </div>
 
-          <article>
-            <a href="/news/what-is-wireframing" class="block overflow-hidden rounded-lg">
-              <img
-                src="/Reframing.png"
-                alt="What is Wireframing?"
-                class="h-60 w-107.41 mb-8  w-full object-cover transition-transform duration-300 hover:scale-105 sm:h-60"
-              />
-            </a>
-            <p class="w-107.41 h-5 mt-5 mb-2 font-['Inter'] text-sm font-semibold leading-5 text-[#14B04C]">
-              15 Jan 2022
-            </p>
-            <a
-              href="/news/what-is-wireframing"
-              class="w-107.4 h-8 mb-2  flex items-start justify-between gap-2 text-lg font-['Inter'] font-semibold  lg:text-xl leading-8 text-(--ec-muted) hover:text-(--ec-green-text)"
-            >
-              What is Wireframing?
-              <svg class=" w-6 h-7 size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9" /></svg>
-            </a>
-            <p class="w-107.4 h-12 text-(--ec-muted) font-['Inter'] text-sm leading-6">
-              Introduction to Wireframing and its Principles. Learn<br class="hidden min-[75rem]:block" /> from the best in the industry.
-            </p>
-          </article>
+            <!-- Card 2: Checkout -->
+            <div :class="cardBorder(active.pesa === 1)">
+              <NuxtLink
+                to="/apis/pesaflow/checkout"
+                class="py-1.5 pr-5 pl-1.5 min-[75rem]:w-35.25 [&>img]:size-7.25"
+                :class="pillStyleGreen(active.pesa === 1)"
+                @click.capture.prevent="setActive('pesa', 1)"
+              >
+                <img :src="`${base}Icon-b-light.png`" alt="" aria-hidden="true" class="dark:hidden" />
+                <img :src="`${base}Icon-b-dark.png`" alt="" aria-hidden="true" class="hidden dark:block" />
+                Checkout
+              </NuxtLink>
+              <p>Whether you have a team of 2 or 200, our shared<br class="hidden min-[75rem]:block" /> team inboxes keep everyone on the same page<br class="hidden min-[75rem]:block" /> and in the loop.</p>
+            </div>
 
-          <article class="sm:col-span-2 sm:mx-auto sm:w-[calc(50%-0.75rem)] lg:col-span-1 lg:mx-0 lg:w-auto">
-            <a href="/news/payment-checkout" class="block overflow-hidden rounded-lg">
-              <img
-                src="/Payment%20checkout.png"
-                alt="Payment Checkout"
-                class="h-60 w-107.41 mb-8  w-full object-cover transition-transform duration-300 hover:scale-105 sm:h-60"
-              />
-            </a>
-            <p class="w-107.41 h-5 mt-5 mb-2 font-['Inter'] text-sm font-semibold leading-5 text-[#14B04C]">
-              14 Jan 2022
-            </p>
-            <a
-              href="/news/payment-checkout"
-              class="w-107.4 h-8 mb-2  flex items-start justify-between gap-2 text-lg font-['Inter'] font-semibold  lg:text-xl leading-8 text-(--ec-muted) hover:text-(--ec-green-text)"
-            >
-              Payment Checkout
-              <svg class=" w-6 h-7 size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9" /></svg>
-            </a>
-            <p class="w-107.4 h-12 text-(--ec-muted) font-['Inter'] text-sm leading-6">
-              Collaboration can make our teams stronger, and our<br class="hidden min-[75rem]:block" /> individual designs better.
-            </p>
-          </article>
-        </div>
-
-        <a
-          href="/news"
-          class=" inline-flex h-12 items-center justify-center rounded-full bg-(--ec-btn-bg) px-8 text-sm font-semibold text-(--ec-btn-text) transition-colors hover:bg-(--ec-btn-bg-hover) min-[75rem]:mb-6.75"
-        >View All</a>
-      </section>
-    </main>
- 
-    <!-- ================= FOOTER ================= -->
-    <footer class="w-full bg-(--ec-footer-bg) text-white">
-      <div class="mx-auto w-full max-w-378 px-4 pt-10 pb-6 sm:px-8 min-[75rem]:min-h-79.25 min-[75rem]:px-25.5 min-[75rem]:pt-14">
-        <!-- FOOTER TOP CONTENT -->
-        <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-          <div class="max-w-80">
-            <a href="/" class="inline-block">
-              <img src="/Footer%20frame.png" alt="eCitizen" class="h-11 w-55.25 max-w-full object-contain object-left" />
-            </a>
- 
-            <p class="mt-6 text-sm leading-6 text-gray-200 min-[75rem]:mt-8">
-              Giving Kenyans easy access to automated<br class="hidden min-[75rem]:block" />
-              services.
-            </p>
+            <!-- Card 3: Configure channels -->
+            <div :class="cardBorder(active.pesa === 2)">
+              <NuxtLink
+                to="/apis/pesaflow/configure-channels"
+                class="px-4 min-[75rem]:w-56.5 [&>img]:size-7"
+                :class="pillStyle(active.pesa === 2)"
+                @click.capture.prevent="setActive('pesa', 2)"
+              >
+                <img :src="`${base}Icon c light.png`" alt="" aria-hidden="true" class="dark:hidden" />
+                <img :src="`${base}Icon-c-dark.png`" alt="" aria-hidden="true" class="hidden dark:block" />
+                Configure channels
+              </NuxtLink>
+              <p>An all-in-one customer service platform that helps<br class="hidden min-[75rem]:block" /> you balance everything your customers need to be<br class="hidden min-[75rem]:block" /> happy.</p>
+            </div>
           </div>
- 
-          <nav class="flex flex-wrap items-center gap-x-8 gap-y-3 text-sm font-medium md:mt-10" aria-label="Footer">
-            <a href="/support" class="transition-colors hover:text-(--ec-green-text)">Help</a>
-            <a href="/privacy" class="transition-colors hover:text-(--ec-green-text)">Privacy</a>
-            <a href="/terms" class="transition-colors hover:text-(--ec-green-text)">Terms &amp; Conditions</a>
-          </nav>
-        </div>
- 
-        <!-- FOOTER BOTTOM CONTENT -->
-        <div
-          class="mt-10 flex flex-col gap-5 border-t border-white/15 pt-6 text-sm text-gray-200 sm:flex-row sm:items-center sm:justify-between min-[75rem]:mt-13.5 min-[75rem]:pt-7"
+
+          <!-- Learn more button -->
+          <NuxtLink
+            to="/apis/pesaflow"
+            class="mb-16 inline-flex h-12 w-32 items-center justify-center rounded-full bg-[#14b04c] font-['Inter'] text-base leading-6 font-semibold text-white transition-colors hover:bg-[#109a3e] min-[75rem]:mb-32.5 min-[75rem]:ml-179 min-[75rem]:mr-167"
+          >Learn More</NuxtLink>
+        </section>
+
+        <!-- ================= INSTANT ENVIRONMENTS BANNER: full-screen-width greyscale photo with centred heading ================= -->
+        <section class="relative left-1/2 mb-12 h-72 w-screen -translate-x-1/2 sm:h-96 md:h-130 min-[75rem]:mb-24.7 min-[75rem]:h-198.25">
+          <NuxtLink to="/environments" class="relative block size-full">
+            <img :src="`${base}Rectangle-9.png`" alt="Developer working at a desk" class="size-full object-cover grayscale" />
+
+            <!-- Text layer: stretches over the photo, stays centred inside the 1512 frame -->
+            <div class="absolute inset-y-0 left-1/2 flex w-full  -translate-x-1/2 flex-col items-center justify-center px-4 text-center text-white">
+              <h2 class="mb-4 text-3xl leading-[1.2] font-semibold sm:text-5xl md:text-7xl min-[75rem]:mb-4.75 min-[75rem]:h-70.5 min-[75rem]:max-w-214.75 min-[75rem]:whitespace-nowrap min-[86.25rem]:text-[96px]">
+                Instant developer <br class="hidden min-[75rem]:block" />
+                environments
+              </h2>
+
+              <span class="px-7 py-4 font-['Inter'] text-lg leading-7 font-semibold whitespace-nowrap transition-colors hover:text-[#18D75D] min-[75rem]:mb-35.25 min-[75rem]:h-15 min-[75rem]:w-38.75">
+                Learn More
+              </span>
+            </div>
+          </NuxtLink>
+        </section>
+
+        <!-- ================= LATEST NEWS: heading + three article cards. Parent styles every card part (image, date, title, text) ================= -->
+        <section
+          class="mx-auto mb-12 w-full max-w-338.25 px-4 text-center font-['Inter'] text-[#222222] dark:text-[#fff7f5] sm:px-8 min-[75rem]:mb-6.75 min-[75rem]:ml-19.75 min-[75rem]:px-0 [&>h2]:mx-auto [&>h2]:max-w-3xl [&>p]:mx-auto [&>p]:max-w-3xl"
         >
-          <p>© 2023 eCitizen. All rights reserved.</p>
- 
-          <!-- SOCIAL MEDIA ICONS (3 x 24px, 24px gap) -->
-          <div class="flex h-6 w-30 items-center gap-6">
-            <a
-              href="https://twitter.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Twitter"
-              class="block transition-opacity hover:opacity-70"
+          <h2 class="mb-5 h-11 text-2xl leading-11 font-semibold sm:text-3xl md:text-[36px] min-[75rem]:mt-24">Latest News</h2>
+          <p class="mt-2 mb-10 text-base leading-7.5 md:mb-16 md:text-lg lg:text-xl">Interviews, tips, guides, industry best practices, and news.</p>
+
+          <!-- Cards grid: column widths come from the grid, cards just fill them -->
+          <div
+            class="mx-auto mt-10 mb-10 grid w-full grid-cols-1 gap-10 text-left text-base leading-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 min-[75rem]:mt-16 min-[75rem]:mb-16 min-[75rem]:h-97
+                   [&_article>a]:block [&_article>a]:overflow-hidden [&_article>a]:rounded-lg
+                   [&_img]:mb-8 [&_img]:h-60 [&_img]:w-full [&_img]:object-cover [&_img]:transition-transform [&_img]:duration-300 [&_img]:hover:scale-105
+                   [&_time]:mt-5 [&_time]:mb-2 [&_time]:block [&_time]:h-5 [&_time]:text-sm [&_time]:leading-5 [&_time]:font-semibold [&_time]:text-[#14B04C]
+                   [&_h3>a]:mb-2 [&_h3>a]:flex [&_h3>a]:min-h-8 [&_h3>a]:items-start [&_h3>a]:justify-between [&_h3>a]:gap-2 [&_h3>a]:text-2xl [&_h3>a]:leading-8 [&_h3>a]:font-semibold [&_h3>a]:hover:text-[#14b04c]
+                   [&_svg]:size-6 [&_svg]:shrink-0
+                   [&_article>p]:min-h-12"
+          >
+            <!-- News 1 -->
+            <article>
+              <NuxtLink to="/news/sign-in-with-digital-id">
+                <img :src="`${base}Sign-in-with-digital.png`" alt="Sign in with Digital ID" />
+              </NuxtLink>
+              <time>16 Jan 2022</time>
+              <h3>
+                <NuxtLink to="/news/sign-in-with-digital-id">
+                  Sign in with Digital ID
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9" /></svg>
+                </NuxtLink>
+              </h3>
+              <p>Mental models are simple expressions of complex<br class="hidden min-[75rem]:block" /> processes or relationships.</p>
+            </article>
+
+            <!-- News 2 -->
+            <article>
+              <NuxtLink to="/news/what-is-wireframing">
+                <img :src="`${base}Reframing.png`" alt="What is Wireframing?" />
+              </NuxtLink>
+              <time>15 Jan 2022</time>
+              <h3>
+                <NuxtLink to="/news/what-is-wireframing">
+                  What is Wireframing?
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9" /></svg>
+                </NuxtLink>
+              </h3>
+              <p>Introduction to Wireframing and its Principles. Learn<br class="hidden min-[75rem]:block" /> from the best in the industry.</p>
+            </article>
+
+            <!-- News 3 (centred on its own row at the 2-column breakpoint) -->
+            <article class="sm:col-span-2 sm:mx-auto sm:w-[calc(50%-0.75rem)] lg:col-span-1 lg:mx-0 lg:w-auto">
+              <NuxtLink to="/news/payment-checkout">
+                <img :src="`${base}Payment-checkout.png`" alt="Payment Checkout" />
+              </NuxtLink>
+              <time>14 Jan 2022</time>
+              <h3>
+                <NuxtLink to="/news/payment-checkout">
+                  Payment Checkout
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9" /></svg>
+                </NuxtLink>
+              </h3>
+              <p>Collaboration can make our teams stronger, and our<br class="hidden min-[75rem]:block" /> individual designs better.</p>
+            </article>
+          </div>
+
+          <!-- View all news -->
+          <NuxtLink
+            to="/news"
+            class="inline-flex h-12 items-center justify-center rounded-full bg-[#14b04c] px-8 text-base leading-6 font-semibold text-white transition-colors hover:bg-[#109a3e] min-[75rem]:mb-6.75"
+          >View All</NuxtLink>
+        </section>
+      </main>
+
+      <!-- ================= FOOTER: full-screen-width dark bar. Font + base colours set here and inherited ================= -->
+      <footer class="relative left-1/2 w-screen -translate-x-1/2 bg-[#090909] font-['Inter'] text-base leading-6 text-white">
+        <div class="mx-auto w-full px-4 pt-12 pb-8 sm:px-8 min-[75rem]:h-86 min-[75rem]:w-378 min-[75rem]:px-29 min-[75rem]:pt-16 min-[75rem]:pb-39">
+
+          <!-- Footer top: brand block on the left, links on the right -->
+          <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+            <div>
+              <NuxtLink to="/" class="inline-block">
+                <img :src="`${base}Footer-frame.png`" alt="eCitizen" class="h-11 w-55.25 max-w-full object-contain object-left" />
+              </NuxtLink>
+              <p class="mt-8 text-gray-200">Giving Kenyans easy access to automated<br class="hidden min-[75rem]:block" /> services.</p>
+            </div>
+
+            <!-- Footer links: hover + transition set once on the nav -->
+            <nav
+              aria-label="Footer"
+              class="mb-4 flex w-full flex-wrap items-center gap-x-8 gap-y-3 font-semibold md:mt-10 md:mb-12.5 md:w-auto min-[75rem]:h-6 min-[75rem]:w-78 [&>a]:transition-colors [&>a]:hover:text-[#14b04c]"
             >
-              <img src="/App x icon.png" alt="" aria-hidden="true" width="24" height="24" class="size-6 object-contain" />
-            </a>
- 
-            <a
-              href="https://www.linkedin.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              class="block transition-opacity hover:opacity-70"
-            >
-              <img src="/LinkedIn icon.png" alt="" aria-hidden="true" width="24" height="24" class="size-6 object-contain" />
-            </a>
- 
-            <a
-              href="https://www.facebook.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              class="block transition-opacity hover:opacity-70"
-            >
-              <img src="/Facebook icon.png" alt="" aria-hidden="true" width="24" height="24" class="size-6 object-contain" />
-            </a>
+              <NuxtLink to="/support">Help</NuxtLink>
+              <NuxtLink to="/privacy">Privacy</NuxtLink>
+              <NuxtLink to="/terms">Terms &amp; Conditions</NuxtLink>
+            </nav>
+          </div>
+
+          <!-- Footer bottom: copyright + social icons (parent sizes every icon) -->
+          <div class="mt-6 flex w-full flex-col gap-5 border-t border-white/15 pt-6 text-gray-200 sm:flex-row sm:items-center sm:justify-between min-[75rem]:mt-16 min-[75rem]:mb-9 min-[75rem]:h-14 min-[75rem]:pt-0">
+            <!-- Year updates automatically -->
+            <p>©️ {{ currentYear }} eCitizen. All rights reserved.</p>
+
+            <div class="flex h-6 w-30 items-center gap-6 [&>a]:block [&>a]:transition-opacity [&>a]:hover:opacity-70 [&_img]:size-6 [&_img]:object-contain">
+              <NuxtLink to="https://twitter.com/" external target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                <img :src="`${base}App-x-icon.png`" alt="" aria-hidden="true" />
+              </NuxtLink>
+              <NuxtLink to="https://www.linkedin.com/" external target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <img :src="`${base}LinkedIn-icon.png`" alt="" aria-hidden="true" />
+              </NuxtLink>
+              <NuxtLink to="https://www.facebook.com/" external target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <img :src="`${base}Facebook-icon.png`" alt="" aria-hidden="true" />
+              </NuxtLink>
+            </div>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
   </div>
 </template>
- 
+
 <script setup>
-import { ref, reactive, onMounted, onBeforeUnmount, watch } from 'vue'
- 
 /* =====================================================================
-   SCRIPT = BEHAVIOUR ONLY
-   All styling lives in the template as Tailwind classes.
-   This file only holds how each section works:
-     1. Theme (light / dark)
-     2. Nav bar (APIs dropdown, mobile menu)
-     3. Option tabs (Authorization API + Pesaflow)
+   SCRIPT = BEHAVIOUR + SHARED STYLE TOKENS
+   (ref, reactive, onMounted... are auto-imported by Nuxt)
+     0. Base URL     - prefix for every image path written in the template
+     1. Theme        - adds / removes the "dark" class on <html>
+     2. Nav bar      - APIs dropdown + mobile menu
+     3. Option cards - active tab + the shared active/inactive styles
+     4. Footer year
+
+   REQUIRED (already set up):
+     - main.css:        @custom-variant dark (&:where(.dark, .dark *));
+     - nuxt.config.ts:  app.head.script with the pre-paint theme snippet
    ===================================================================== */
- 
+
+/* ---------- 0. BASE URL ----------
+   Template usage: :src="`${base}File-name.png`"  (use the exact file name from /public).
+   Works with app.baseURL = '/THEMED-WEBSITE-/' on GitHub Pages and in dev. */
+const base = useRuntimeConfig().app.baseURL
+
 /* ---------- 1. THEME ---------- */
 const THEME_KEY = 'ec-theme'
-const theme = ref('light') // 'light' | 'dark'
- 
-function setMeta(name, content) {
-  let el = document.head.querySelector(`meta[name="${name}"]`)
-  if (!el) {
-    el = document.createElement('meta')
-    el.setAttribute('name', name)
-    document.head.appendChild(el)
-  }
-  el.setAttribute('content', content)
-}
- 
+const theme = ref('light') // mirrors the <html> class, used for aria-checked
+
 function applyTheme(value) {
   const root = document.documentElement
-  root.setAttribute('data-theme', value)
+  root.classList.toggle('dark', value === 'dark')
   root.style.colorScheme = value
-  setMeta('color-scheme', value)
-  setMeta('darkreader-lock', '')
+  theme.value = value
 }
- 
+
 function toggleTheme() {
-  theme.value = theme.value === 'dark' ? 'light' : 'dark'
+  const next = document.documentElement.classList.contains('dark') ? 'light' : 'dark'
+  applyTheme(next)
+  try { localStorage.setItem(THEME_KEY, next) } catch (e) { /* storage blocked */ }
 }
- 
+
 function getInitialTheme() {
   let saved = null
   try { saved = localStorage.getItem(THEME_KEY) } catch (e) { /* storage blocked */ }
   if (saved === 'dark' || saved === 'light') return saved
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
- 
-watch(theme, (value) => {
-  applyTheme(value)
-  try { localStorage.setItem(THEME_KEY, value) } catch (e) { /* ignore */ }
-})
- 
+
 /* ---------- 2. NAV BAR ---------- */
 const apiOpen = ref(false)
 const menuOpen = ref(false)
- 
-function toggleApiMenu() {
-  apiOpen.value = !apiOpen.value
-}
- 
-function toggleMobileMenu() {
-  menuOpen.value = !menuOpen.value
-}
- 
-function closeMobileMenu() {
-  menuOpen.value = false
-}
- 
-// Close the APIs dropdown when clicking anywhere outside it
+
+const toggleApiMenu = () => { apiOpen.value = !apiOpen.value }
+const toggleMobileMenu = () => { menuOpen.value = !menuOpen.value }
+const closeMobileMenu = () => { menuOpen.value = false }
+
+// Click anywhere outside the APIs dropdown closes it
 function onDocClick(e) {
   if (!e.target.closest('[data-menu]')) apiOpen.value = false
 }
- 
+
 // Escape closes both the dropdown and the mobile menu
 function onKey(e) {
   if (e.key === 'Escape') {
@@ -882,168 +677,47 @@ function onKey(e) {
     menuOpen.value = false
   }
 }
- 
-// Close the mobile menu if the window is resized up to the desktop layout
+
+// Resizing up to the desktop layout closes the mobile menu
 function onResize() {
   if (window.innerWidth >= 1200) menuOpen.value = false
 }
- 
-/* ---------- 3. OPTION TABS ---------- */
+
+/* ---------- 3. OPTION CARDS ---------- */
+// Which card is selected in each group: 'auth' (Authorization API) | 'pesa' (Pesaflow)
 const active = reactive({ auth: 1, pesa: 1 })
- 
-// group: 'auth' (Authorization API) | 'pesa' (Pesaflow)
-function setActive(group, index) {
-  active[group] = index
-}
- 
+const setActive = (group, index) => { active[group] = index }
+
+// Shared styles: written once here instead of repeating the long strings in every card
+const cardBorder = (on) =>
+  on ? 'border-[#14B04C] dark:border-[#18D75D]' : 'border-[#F2F4F7]'
+
+const pillOff =
+  'bg-[#e6e6e6] text-[#222222] hover:bg-[#d9d9d9] dark:bg-[#222222] dark:text-[#c5c5c5] dark:hover:bg-[#232323]'
+
+// Dark-green pill (Password, MCDAs, Make payment, Configure channels)
+const pillStyle = (on) => (on ? 'bg-[#0a993d] text-white' : pillOff)
+
+// Bright-green pill (Digital ID, Checkout)
+const pillStyleGreen = (on) =>
+  on
+    ? 'bg-[#14B04C] text-white hover:bg-[#109a3e] dark:bg-[#07FF6F]/36 dark:text-white dark:hover:bg-[#07FF6F]/50'
+    : pillOff
+
+/* ---------- 4. FOOTER YEAR ---------- */
+const currentYear = new Date().getFullYear()
+
 /* ---------- LIFECYCLE ---------- */
 onMounted(() => {
-  theme.value = getInitialTheme()
-  applyTheme(theme.value)
- 
+  applyTheme(getInitialTheme())
   document.addEventListener('click', onDocClick)
   document.addEventListener('keydown', onKey)
   window.addEventListener('resize', onResize)
- 
-  // Enable the smooth theme transition only after the initial theme has painted
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      document.documentElement.classList.add('ec-theme-ready')
-    })
-  })
 })
- 
+
 onBeforeUnmount(() => {
   document.removeEventListener('click', onDocClick)
   document.removeEventListener('keydown', onKey)
   window.removeEventListener('resize', onResize)
-  document.documentElement.classList.remove('ec-theme-ready')
 })
 </script>
- 
-<style>
-/* ================= THEME TOKENS (light, default) ================= */
- 
-:root {
-  --ec-bg: #ffffff;
-  --ec-text: #1a1a1a;
-  --ec-muted: #222222;
-  --ec-surface: #e6e6e6;
-  --ec-border: #e4e7ec;
-  --ec-nav-text: #1f1f1f;
-  --ec-nav-home:#18D75D;
-  --ec-nav-regwhite:#15B76C;
-  --ec-nav-reg: var(--ec-nav-regwhite);
-  --ec-nav-active: #5db872;
-  --ec-green: #4fae72;
-  --ec-green-strong: #439a63;
-  --ec-green-text: #14b04c;
-  --ec-search-bg: rgba(255, 255, 255, 0.7);
-  --ec-search-border: #d6d6d6;
-  --ec-search-icon: #9a9a9a;
-  --ec-reg-bg: #15b76c;
-  --ec-reg-bg-hover: #109a5a;
-  --ec-reg-text: #ffffff;
-  --ec-tab-bar: #e4e7ec;
-  --ec-pill-bg: #e6e6e6;
-  --ec-pill-text: #222222;
-  --ec-pill-on-bg: #14b04c;
-  --ec-pill-on-bg-auth: #0a993d;
-  --ec-pill-on-text: #ffffff;
-  --ec-chip-bg: #ffffff;
-  --ec-chip-on-bg: #e3f5ea;
-  --ec-chip-on-text: #067647;
-  --ec-btn-bg: #14b04c;
-  --ec-btn-bg-hover: #109a3e;
-  --ec-btn-text: #ffffff;
-  --ec-footer-bg: #090909;
-  --ec-hero-1: rgba(4, 85, 33, 0.7);
-  --ec-hero-2: #1e9034;
-  --ec-hero-3: #7dcc70;
-  --ec-hero-4: #a9bf36;
-  --ec-hero-5: #db6900;
-  --ec-glow: rgba(34, 120, 70, 0);
-  --ec-meets-1: #74b86a;
-  --ec-meets-2: #98ca70;
-  --ec-meets-3: #aebf46;
-  --ec-meets-4: #b8a63e;
-  --ec-meets-5: #c4852f;
-  --ec-news-title: #222222;
- 
-  color-scheme: light;
-}
- 
-/* ================= THEME TOKENS (dark) ================= */
- 
-:root[data-theme='dark'] {
-  --ec-bg: #151515;
-  --ec-text: #f2f2f2;
-  --ec-muted: #fff7f5;
-  --ec-surface: #232323;
-  --ec-border: #333333;
-  --ec-nav-text: #f2f2f2;
-  --ec-nav-active: #5ed06f;
-  --ec-nav-home:#18D75D;
-  --ec-nav-regdark:#18D75D;
-  --ec-nav-reg: var(--ec-nav-regdark);
-  --ec-green: #62d67c;
-  --ec-green-strong: #52c46c;
-  --ec-search-bg: rgba(35, 35, 35, 0.6);
-  --ec-search-border: #3b3b3b;
-  --ec-search-icon: #8a8a8a;
-  --ec-tab-bar: #333333;
-  --ec-pill-bg: #222222;
-  --ec-pill-text: #c5c5c5;
-  --ec-chip-bg: #232323;
-  --ec-chip-on-bg: #1f3a29;
-  --ec-chip-on-text: #7fe39a;
-  --ec-footer-bg: #0a0a0a;
-  --ec-glow: rgba(34, 120, 70, 0.14);
-  --ec-news-title: #fff7f5;
- 
-  color-scheme: dark;
-}
- 
-/* ================= PAGE BACKGROUND ================= */
- 
-html {
-  min-height: 100%;
-  background-color: var(--ec-bg);
-}
- 
-/* ================= REGISTERED COLOUR PROPERTIES (smooth theme fade) ================= */
- 
-@property --ec-bg { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
-@property --ec-text { syntax: '<color>'; inherits: true; initial-value: #1a1a1a; }
-@property --ec-muted { syntax: '<color>'; inherits: true; initial-value: #222222; }
-@property --ec-surface { syntax: '<color>'; inherits: true; initial-value: #e6e6e6; }
-@property --ec-border { syntax: '<color>'; inherits: true; initial-value: #e4e7ec; }
-@property --ec-nav-text { syntax: '<color>'; inherits: true; initial-value: #1f1f1f; }
-@property --ec-nav-active { syntax: '<color>'; inherits: true; initial-value: #5db872; }
-@property --ec-green { syntax: '<color>'; inherits: true; initial-value: #4fae72; }
-@property --ec-green-strong { syntax: '<color>'; inherits: true; initial-value: #439a63; }
-@property --ec-search-bg { syntax: '<color>'; inherits: true; initial-value: rgba(255, 255, 255, 0.7); }
-@property --ec-search-border { syntax: '<color>'; inherits: true; initial-value: #d6d6d6; }
-@property --ec-search-icon { syntax: '<color>'; inherits: true; initial-value: #9a9a9a; }
-@property --ec-tab-bar { syntax: '<color>'; inherits: true; initial-value: #e4e7ec; }
-@property --ec-pill-bg { syntax: '<color>'; inherits: true; initial-value: #e6e6e6; }
-@property --ec-pill-text { syntax: '<color>'; inherits: true; initial-value: #222222; }
-@property --ec-chip-bg { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
-@property --ec-chip-on-bg { syntax: '<color>'; inherits: true; initial-value: #e3f5ea; }
-@property --ec-chip-on-text { syntax: '<color>'; inherits: true; initial-value: #067647; }
-@property --ec-footer-bg { syntax: '<color>'; inherits: true; initial-value: #090909; }
-@property --ec-glow { syntax: '<color>'; inherits: true; initial-value: rgba(34, 120, 70, 0); }
-@property --ec-news-title { syntax: '<color>'; inherits: true; initial-value: #222222; }
- 
-/* ================= SMOOTH THEME SWITCH ================= */
- 
-html.ec-theme-ready {
-  transition: all 0.6s ease-in-out;
-}
- 
-@media (prefers-reduced-motion: reduce) {
-  html.ec-theme-ready {
-    transition: none;
-  }
-}
-</style>
